@@ -161,3 +161,31 @@ body {
     padding-right: 15px;
     padding-left: 15px;
 }
+
+.bg-col1 {
+    background: red;
+}
+.bg-col2 {
+    background: green;
+}
+.bg-col3 {
+    background: deepskyblue;
+}
+.bg-col4 {
+    background: yellow;
+}
+.bg-col5 {
+    background: orange;
+}
+.bg-col6 {
+    background: purple;
+}
+.bg-col7 {
+    background: burlywood;
+}
+.bg-col8 {
+    background: palevioletred;
+}
+.bg-col9 {
+    background: blue;
+}

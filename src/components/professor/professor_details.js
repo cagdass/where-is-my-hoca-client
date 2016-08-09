@@ -105,7 +105,8 @@ class ProfessorDetails extends React.Component {
                    "courseCode": classes[i].courseCode,
                    "section": classes[i].section,
                    "status": tokenizedLecture.status,
-                   "location": tokenizedLecture.location
+                   "location": tokenizedLecture.location,
+                   "className": "bg-col" + (i+1)
                };
 
 
@@ -128,11 +129,11 @@ class ProfessorDetails extends React.Component {
 
     renderScheduleRow(schedule, hour){
         return <div>
-                <Col xs={3} md={2}>{schedule[0][hour].courseCode != undefined && this.prettifyCourse(schedule[0][hour]) + " " + schedule[0][hour].location}</Col>
-                <Col xs={3} md={2}>{schedule[1][hour].courseCode != undefined && this.prettifyCourse(schedule[1][hour]) + " " + schedule[1][hour].location}</Col>
-                <Col xs={3} md={2}>{schedule[2][hour].courseCode != undefined && this.prettifyCourse(schedule[2][hour]) + " " + schedule[2][hour].location}</Col>
-                <Col xs={3} md={2}>{schedule[3][hour].courseCode != undefined && this.prettifyCourse(schedule[3][hour]) + " " + schedule[3][hour].location}</Col>
-                <Col xs={3} md={2}>{schedule[4][hour].courseCode != undefined && this.prettifyCourse(schedule[4][hour]) + " " + schedule[4][hour].location}</Col>
+                <Col xs={3} md={2} className={schedule[0][hour].className}>{schedule[0][hour].courseCode != undefined && this.prettifyCourse(schedule[0][hour]) + " " + schedule[0][hour].location}</Col>
+                <Col xs={3} md={2} className={schedule[1][hour].className}>{schedule[1][hour].courseCode != undefined && this.prettifyCourse(schedule[1][hour]) + " " + schedule[1][hour].location}</Col>
+                <Col xs={3} md={2} className={schedule[2][hour].className}>{schedule[2][hour].courseCode != undefined && this.prettifyCourse(schedule[2][hour]) + " " + schedule[2][hour].location}</Col>
+                <Col xs={3} md={2} className={schedule[3][hour].className}>{schedule[3][hour].courseCode != undefined && this.prettifyCourse(schedule[3][hour]) + " " + schedule[3][hour].location}</Col>
+                <Col xs={3} md={2} className={schedule[4][hour].className}>{schedule[4][hour].courseCode != undefined && this.prettifyCourse(schedule[4][hour]) + " " + schedule[4][hour].location}</Col>
             </div>
     }
 
@@ -146,7 +147,7 @@ class ProfessorDetails extends React.Component {
 
         return (<div>
             <Table striped condensed hover>
-                <Row className="show-grid">
+                <Row>
                     <Col xs={3} md={2}></Col>
                     <Col xs={3} md={2}>Monday</Col>
                     <Col xs={3} md={2}>Tuesday</Col>
@@ -155,12 +156,12 @@ class ProfessorDetails extends React.Component {
                     <Col xs={3} md={2}>Friday</Col>
                 </Row>
                 <br/>
-                <Row className="show-grid">
+                <Row>
                     <Col xs={3} md={2}>08.40-09.30</Col>
                     {this.renderScheduleRow(schedule, 0)}
                 </Row>
                 <br/>
-                <Row className="show-grid">
+                <Row>
                     <Col xs={3} md={2}>09.40-10.30</Col>
                     {this.renderScheduleRow(schedule, 1)}
                 </Row>
