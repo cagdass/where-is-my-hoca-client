@@ -1,10 +1,10 @@
 import React from "react";
 import {Route, IndexRoute} from "react-router";
 import MainHome from "./components/main_home";
-import DepartmentList from "./components/department_list";
-import DepartmentDetails from "./components/department_details";
-import ProfessorsList from "./components/professors_list";
-import ProfessorDetails from "./components/professor_details";
+import DepartmentList from "./components/department/department_list";
+import DepartmentDetails from "./components/department/department_details";
+import ProfessorsList from "./components/professor/professors_list";
+import ProfessorDetails from "./components/professor/professor_details";
 import NoMatch from "components/no_match";
 
 const routes = (

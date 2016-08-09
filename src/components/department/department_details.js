@@ -1,7 +1,7 @@
 import React, {PropTypes} from "react";
 import {Button, Col, Glyphicon, Panel, Row, Table} from "react-bootstrap";
 import {Link} from "react-router";
-import departmentService from "./department_service.js";
+import departmentService from "../schedule_service.js";
 
 class DepartmentDetails extends React.Component {
     constructor(props, context, ...args) {

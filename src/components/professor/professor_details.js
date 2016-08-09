@@ -1,6 +1,6 @@
 import React, {PropTypes} from "react";
 import {Button, Col, Glyphicon, Panel, Row, Table, Grid} from "react-bootstrap";
-import departmentService from "./department_service.js";
+import departmentService from "../schedule_service.js";
 
 class ProfessorDetails extends React.Component {
     constructor(props, context, ...args) {
@@ -15,7 +15,6 @@ class ProfessorDetails extends React.Component {
     }
 
     componentWillMount() {
-        // console.log(this.props.params)
         let professor = this.props.params.id.replace(/_/g, " ");
         departmentService.professorDetails(professor).then(classes => {
             this.setState({classes});
@@ -99,7 +98,7 @@ class ProfessorDetails extends React.Component {
 
         for (var i = 0; i < classes.length; i++) {
             var lectures = classes[i].lectures;
-            for (var j = 0; j < lectures.length; j++){
+            for (var j = 0;lectures != undefined && j < lectures.length; j++){
                var tokenizedLecture = this.tokenizeLecture(lectures[j]);
                var obj = {
                    "departmentCode": classes[i].departmentCode,
@@ -113,11 +112,6 @@ class ProfessorDetails extends React.Component {
 
                var day = tokenizedLecture.dayNum;
                var hours = tokenizedLecture.classSpan;
-                console.log("Objecprint");
-                console.log(obj);
-                console.log(day);
-                console.log(hours)
-                console.log(lectures[j])
 
                for(var k = 0; k < hours.length; k++){
                    schedule[day][hours[k]] = obj;
@@ -151,8 +145,6 @@ class ProfessorDetails extends React.Component {
         console.log(schedule);
 
         return (<div>
-                <pre>{JSON.stringify(schedule)}</pre>
-                <pre>{JSON.stringify(this.state)}</pre>
             <Table striped condensed hover>
                 <Row className="show-grid">
                     <Col xs={3} md={2}></Col>
@@ -220,7 +212,6 @@ class ProfessorDetails extends React.Component {
         let {classes = []} = this.state;
         let professor = this.props.params.id.replace(/_/g, " ");
         return (<div>
-            <pre>{JSON.stringify(classes)}</pre>
             <h2>Search results for {professor}:</h2>
             <Table striped condensed hover>
                 <thead>
