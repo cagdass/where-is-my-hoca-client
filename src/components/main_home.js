@@ -1,6 +1,7 @@
 import React from "react";
 import {MenuItem, Navbar, Nav, NavItem, NavDropdown} from "react-bootstrap";
 import {Link} from "react-router";
+import IndexFooter from "./index_footer";
 
 class MainHome extends React.Component {
     constructor(props, context, ...args) {
@@ -34,6 +35,9 @@ class MainHome extends React.Component {
             <div className="container">
                 {children}
             </div>
+            <br/>
+            <br/>
+            <IndexFooter/>
         </div>;
     }
 }

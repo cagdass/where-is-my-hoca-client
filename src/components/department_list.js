@@ -24,8 +24,8 @@ class DepartmentList extends React.Component {
 
     renderDepartment(department, index) {
         return <span>
-                <Col xs={3}><Link to={`/department/${department}`}>{department}</Link></Col>
-                </span>
+                <Col xs={3} className="searchCol"><Link to={`/department/${department}`}>{department}</Link></Col>
+            </span>
     }
 
     render() {

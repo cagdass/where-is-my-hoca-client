@@ -140,3 +140,23 @@ body {
 .margin-right-20 {
     margin-right: 20px;
 }
+
+.searchCol {
+    margin-top: 10px;
+}
+
+.footer {
+    clear: both;
+    position: relative;
+    z-index: 10;
+    height: 30px;
+    margin-top: -3em;
+    width: 100%;
+    background: #f2f2f2;
+    /* Set the fixed height of the footer here */
+}
+
+.footer > .container {
+    padding-right: 15px;
+    padding-left: 15px;
+}

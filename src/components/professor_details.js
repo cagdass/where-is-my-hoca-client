@@ -101,7 +101,7 @@ class ProfessorDetails extends React.Component {
         let schedule = this.formatSchedule(classes);
 
         return (
-            <Grid>
+            <Table striped condensed hover>
                 <Row className="show-grid">
                     <Col xs={3} md={2}></Col>
                     <Col xs={3} md={2}>Monday</Col>
@@ -191,7 +191,7 @@ class ProfessorDetails extends React.Component {
                     <Col xs={3} md={2}></Col>
                     <Col xs={3} md={2}></Col>
                 </Row>
-            </Grid>
+            </Table>
         );
     }
 
@@ -211,7 +211,9 @@ class ProfessorDetails extends React.Component {
                     {classes.map(this.renderClass.bind(this))}
                 </tbody>
             </Table>
-            <div>{this.renderSchedule()}</div>
+            <br/>
+            <br/>
+            {this.renderSchedule()}
         </div>);
     }
 }

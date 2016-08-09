@@ -51,9 +51,9 @@ class ProfessorsList extends React.Component {
     }
 
     renderProfessor(professor) {
-        return <tr key={professor}>
-            <td><Link to={`/professor/${professor.replace(" ", "%20")}`}>{professor}</Link></td>
-        </tr>
+        return <span>
+            <Col className="searchCol" xs={4}><Link to={`/professor/${professor.replace(" ", "%20")}`}>{professor}</Link></Col>
+        </span>
     }
 
     render() {
@@ -74,7 +74,7 @@ class ProfessorsList extends React.Component {
                     </FormGroup>
                 </form>
                 <Row>
-                    <Col xs={20} sm={20} md={6}>
+                    <Col xs={40} sm={30} md={10}>
                         <Table>
                             <thead>
                             <tr>
