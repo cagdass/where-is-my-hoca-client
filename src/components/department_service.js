@@ -17,6 +17,12 @@ class DepartmentService {
         })
     }
 
+    findProfessors() {
+        return baseAPI.get("professors").catch(error => {
+            return {instructor: "David Daveport"}
+        })
+    }
+
     findDistinctDepartments(searchParams, orderParams, skip, limit) {
         return baseAPI.get("departments", {
             searchParams,

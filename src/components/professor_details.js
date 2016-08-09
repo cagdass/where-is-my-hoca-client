@@ -35,24 +35,20 @@ class ProfessorDetails extends React.Component {
         let {classes = []} = this.state;
         return (<div>
             <h2>Search results for {this.props.params.id}:</h2>
-            <Row>
-            <Col xs={12} sm={12} md={6}>
-            <Table>
-            <thead>
-            <tr>
-            <th>Lectures</th>
-            <th>Title</th>
-            <th>Course</th>
-            <th>Professor</th>
-            </tr>
-            </thead>
-            <tbody>
-            {classes.map(this.renderClass.bind(this))}
-    </tbody>
-        </Table>
-
-        </Col>
-        </Row></div>);
+            <Table striped condensed hover>
+                <thead>
+                    <tr>
+                        <th>Lectures</th>
+                        <th>Title</th>
+                        <th>Course</th>
+                        <th>Professor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {classes.map(this.renderClass.bind(this))}
+                </tbody>
+            </Table>
+        </div>);
     }
 }
 

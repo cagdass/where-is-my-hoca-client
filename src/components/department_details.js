@@ -16,9 +16,14 @@ class DepartmentDetails extends React.Component {
             .then(() => this.setState({isLoaded: true}));
     }
 
+    renderInstructor(instructor){
+        return <div><Link to={`/professor/${instructor.replace(" ", "%20")}`}>{instructor}</Link>
+            <br/></div>
+    }
+
     renderClass(clase, index) {
       return <tr key={index}>
-        <td><Link to={`/professor/${clase.instructor.replace(" ", "%20")}`}>{clase.instructor}</Link></td>
+        <td>{clase.instructor.map(this.renderInstructor.bind(this))}</td>
         <td>{clase.title}</td>
         <td>{clase.departmentCode + clase.courseCode + "-" + clase.section}</td>
         </tr>
@@ -26,9 +31,7 @@ class DepartmentDetails extends React.Component {
 
     render() {
         let {classes = []} = this.state;
-        return (<Row>
-            <Col xs={12} sm={12} md={6}>
-              <Table>
+        return (<Table striped condensed hover>
                   <thead>
                   <tr>
                       <th>Instructor</th>
@@ -39,10 +42,7 @@ class DepartmentDetails extends React.Component {
                   <tbody>
                     {classes.map(this.renderClass.bind(this))}
                   </tbody>
-              </Table>
-
-            </Col>
-        </Row>);
+              </Table>);
     }
 }
 
