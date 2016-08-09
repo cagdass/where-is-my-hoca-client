@@ -30,12 +30,64 @@ class ProfessorDetails extends React.Component {
         </tr>
     }
 
+    numerizeHour(hour){
+        // '08:40' returns 0, '12:30' returns 4
+        return Number(hour.slice(0,2)) - 8;
+    }
+
+    getClassSpan(start, end){
+        var nums = [];
+        for(var i = start; i < end; i++){
+            nums.push(i)
+        }
+
+        // 08:40, 10:30 would return, after stopping at numerizeHour(), [0, 1]
+        return nums;
+    }
+
+    numerizeDay(day){
+        if(day ==='Mon'){
+            return 0;
+        }
+        else if(day === 'Tue'){
+            return 1;
+        }
+        else if(day === 'Thu'){
+            return 3;
+        }
+        else if(day === 'Fri'){
+            return 4;
+        }
+        else if(day === 'Wed'){
+            return 2;
+        }
+        else{
+            return 5;
+        }
+    }
+
+
+
+    tokenizeLecture(lecture){
+        var day = lecture.day;
+        var start = lecture.hours[0];
+        var end = lecture.hours[1];
+        var location = lecture.location;
+        var status = lecture.status;
+
+        var dayNum = this.numerizeDay(day);
+        var classSpan = this.getClassSpan(this.numerizeHour(start), this.numerizeHour(end));
+    }
+
     formatSchedule(classes) {
         var schedule = [[{}, {}, {}, {}, {}, {}, {}, {}], [{}, {}, {}, {}, {}, {}, {}, {}], [{}, {}, {}, {}, {}, {}, {}, {}], [{}, {}, {}, {}, {}, {}, {}, {}], [{}, {}, {}, {}, {}, {}, {}, {}]]
 
         for (var i = 0; i < classes.length; i++) {
-            console.log("Printing lectures")
-            console.log(classes[i].lectures);
+            var lectures = classes[i].lectures;
+            for (var j = 0; j < lectures.length; j++){
+                console.log("Printing lectures")
+                console.log(lectures[j]);
+            }
         }
 
         return schedule;

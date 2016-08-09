@@ -24,7 +24,7 @@ class DepartmentList extends React.Component {
 
     renderDepartment(department, index) {
         return <span>
-                <Col xs={4}><Link to={`/department/${department}`}>{department}</Link></Col>
+                <Col xs={3}><Link to={`/department/${department}`}>{department}</Link></Col>
                 </span>
     }
 
@@ -32,11 +32,11 @@ class DepartmentList extends React.Component {
         let {departments = []} = this.state;
         return ( <div>
             <Row>
-              <Col xs={20} sm={20} md={6}>
+              <Col xs={40} sm={40} md={12}>
                   <Table>
                       <thead>
                       <tr>
-                          <th>Details</th>
+                          <th>Departments</th>
                       </tr>
                       </thead>
                       <tbody>
