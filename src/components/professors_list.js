@@ -6,12 +6,37 @@ import scheduleService from "./department_service"
 class ProfessorsList extends React.Component {
     constructor(props, context, ...args) {
         super(props, context, ...args);
-        this.state = {};
+        this.state = {
+            professors : [],
+            searchInput: ''
+        };
     }
 
     componentWillMount() {
         let {searchParams, orderParams, pager} = this.state;
         this.searchProfessors(searchParams, orderParams, pager).then(() => this.setState({isLoaded: true}));
+    }
+
+    // Credits go to react-auto-suggest
+    escapeRegexCharacters(str) {
+        return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+
+    getSuggestions() {
+        let {professors = []} = this.state;
+
+        let {searchInput} = this.state;
+
+        const escapedValue = this.escapeRegexCharacters(searchInput.trim());
+        const regex = new RegExp(escapedValue, 'i');
+
+        let filteredProfessors = professors.filter(professor => regex.test(professor));
+        this.setState({filteredProfessors});
+    }
+
+    handleChange(e) {
+        this.setState({ searchInput: e.target.value });
+        this.getSuggestions();
     }
 
     searchProfessors() {
@@ -29,9 +54,22 @@ class ProfessorsList extends React.Component {
     }
 
     render() {
-        let professors = this.state.professors.sort() || [];
+        let {filteredProfessors = []} = this.state;
 
         return ( <div>
+                <form>
+                    <FormGroup
+                        controlId="formBasicText">
+                        <ControlLabel>Search for a professor</ControlLabel>
+                        <FormControl
+                            type="text"
+                            value={this.state.searchInput}
+                            placeholder="e.g. Abdullah Atalar"
+                            onChange={this.handleChange.bind(this)}
+                        />
+                        <FormControl.Feedback />
+                    </FormGroup>
+                </form>
                 <Row>
                     <Col xs={20} sm={20} md={6}>
                         <Table>
@@ -41,7 +79,7 @@ class ProfessorsList extends React.Component {
                             </tr>
                             </thead>
                             <tbody>
-                            {professors.map(this.renderProfessor.bind(this))}
+                            {filteredProfessors.map(this.renderProfessor.bind(this))}
                             </tbody>
                         </Table>
                     </Col>
