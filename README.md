@@ -3,5 +3,5 @@
 React application à Where is my Hoca?
 
 ## Usage
-npm install
-npm run dev # Open localhost:8080 in browser
+	npm install
+	npm run dev # Open localhost:8080 in browser
