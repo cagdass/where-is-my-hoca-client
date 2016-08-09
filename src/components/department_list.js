@@ -22,11 +22,10 @@ class DepartmentList extends React.Component {
             .catch(searchError => this.setState({searchError}));
     }
 
-    renderDepartment(department) {
-        return <tr key={department}>
-            <td><Link to={`/department/${department}`}>Details</Link></td>
-            <td>{department}</td>
-        </tr>
+    renderDepartment(department, index) {
+        return <span>
+                <Col xs={4}><Link to={`/department/${department}`}>{department}</Link></Col>
+                </span>
     }
 
     render() {
@@ -38,7 +37,6 @@ class DepartmentList extends React.Component {
                       <thead>
                       <tr>
                           <th>Details</th>
-                          <th>Department</th>
                       </tr>
                       </thead>
                       <tbody>

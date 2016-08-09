@@ -1,5 +1,5 @@
 import React, {PropTypes} from "react";
-import {Button, Col, Glyphicon, Panel, Row, Table} from "react-bootstrap";
+import {Button, Col, Glyphicon, Panel, Row, Table, Grid} from "react-bootstrap";
 import departmentService from "./department_service.js";
 
 class ProfessorDetails extends React.Component {
@@ -24,11 +24,123 @@ class ProfessorDetails extends React.Component {
 
     renderClass(clase, index) {
         return <tr key={index}>
-            <td></td>
             <td>{clase.title}</td>
             <td>{clase.departmentCode + clase.courseCode + "-" + clase.section}</td>
             <td>{clase.instructor}</td>
         </tr>
+    }
+
+    formatSchedule(classes) {
+        var schedule = [[{}, {}, {}, {}, {}, {}, {}, {}], [{}, {}, {}, {}, {}, {}, {}, {}], [{}, {}, {}, {}, {}, {}, {}, {}], [{}, {}, {}, {}, {}, {}, {}, {}], [{}, {}, {}, {}, {}, {}, {}, {}]]
+
+        for (var i = 0; i < classes.length; i++) {
+            console.log("Printing lectures")
+            console.log(classes[i].lectures);
+        }
+
+        return schedule;
+    }
+
+
+    renderSchedule(){
+        let {classes = []} = this.state;
+        console.log(classes);
+
+        let schedule = this.formatSchedule(classes);
+
+        return (
+            <Grid>
+                <Row className="show-grid">
+                    <Col xs={3} md={2}></Col>
+                    <Col xs={3} md={2}>Monday</Col>
+                    <Col xs={3} md={2}>Tuesday</Col>
+                    <Col xs={3} md={2}>Wednesday</Col>
+                    <Col xs={3} md={2}>Thursday</Col>
+                    <Col xs={3} md={2}>Friday</Col>
+                </Row>
+                <br/>
+                <Row className="show-grid">
+                    <Col xs={3} md={2}>08.40-09.30</Col>
+                    <Col xs={3} md={2}></Col>
+                    <Col xs={3} md={2}></Col>
+                    <Col xs={3} md={2}></Col>
+                    <Col xs={3} md={2}></Col>
+                    <Col xs={3} md={2}></Col>
+                </Row>
+                <br/>
+                <Row className="show-grid">
+                    <Col xs={3} md={2}>09.40-10.30</Col>
+                    <Col xs={3} md={2}></Col>
+                    <Col xs={3} md={2}></Col>
+                    <Col xs={3} md={2}></Col>
+                    <Col xs={3} md={2}></Col>
+                    <Col xs={3} md={2}></Col>
+                </Row>
+                <br/>
+                <Row className="show-grid">
+                    <Col xs={3} md={2}>10.40-11.30</Col>
+                    <Col xs={3} md={2}></Col>
+                    <Col xs={3} md={2}></Col>
+                    <Col xs={3} md={2}></Col>
+                    <Col xs={3} md={2}></Col>
+                    <Col xs={3} md={2}></Col>
+                </Row>
+                <br/>
+                <Row className="show-grid">
+                    <Col xs={3} md={2}>11.40-12.30</Col>
+                    <Col xs={3} md={2}></Col>
+                    <Col xs={3} md={2}></Col>
+                    <Col xs={3} md={2}></Col>
+                    <Col xs={3} md={2}></Col>
+                    <Col xs={3} md={2}></Col>
+                </Row>
+                <br/>
+                <Row className="show-grid">
+                    <Col xs={3} md={2}>Marmara tiem :(</Col>
+                    <Col xs={3} md={2}></Col>
+                    <Col xs={3} md={2}></Col>
+                    <Col xs={3} md={2}></Col>
+                    <Col xs={3} md={2}></Col>
+                    <Col xs={3} md={2}></Col>
+                </Row>
+                <br/>
+                <Row className="show-grid">
+                    <Col xs={3} md={2}>13.40-14.30</Col>
+                    <Col xs={3} md={2}></Col>
+                    <Col xs={3} md={2}></Col>
+                    <Col xs={3} md={2}></Col>
+                    <Col xs={3} md={2}></Col>
+                    <Col xs={3} md={2}></Col>
+                </Row>
+                <br/>
+                <Row className="show-grid">
+                    <Col xs={3} md={2}>14.40-15.30</Col>
+                    <Col xs={3} md={2}></Col>
+                    <Col xs={3} md={2}></Col>
+                    <Col xs={3} md={2}></Col>
+                    <Col xs={3} md={2}></Col>
+                    <Col xs={3} md={2}></Col>
+                </Row>
+                <br/>
+                <Row className="show-grid">
+                    <Col xs={3} md={2}>15.40-16.30</Col>
+                    <Col xs={3} md={2}></Col>
+                    <Col xs={3} md={2}></Col>
+                    <Col xs={3} md={2}></Col>
+                    <Col xs={3} md={2}></Col>
+                    <Col xs={3} md={2}></Col>
+                </Row>
+                <br/>
+                <Row className="show-grid">
+                    <Col xs={3} md={2}>16.40-17.30</Col>
+                    <Col xs={3} md={2}></Col>
+                    <Col xs={3} md={2}></Col>
+                    <Col xs={3} md={2}></Col>
+                    <Col xs={3} md={2}></Col>
+                    <Col xs={3} md={2}></Col>
+                </Row>
+            </Grid>
+        );
     }
 
     render() {
@@ -38,7 +150,6 @@ class ProfessorDetails extends React.Component {
             <Table striped condensed hover>
                 <thead>
                     <tr>
-                        <th>Lectures</th>
                         <th>Title</th>
                         <th>Course</th>
                         <th>Professor</th>
@@ -48,6 +159,7 @@ class ProfessorDetails extends React.Component {
                     {classes.map(this.renderClass.bind(this))}
                 </tbody>
             </Table>
+            <div>{this.renderSchedule()}</div>
         </div>);
     }
 }
