@@ -52,7 +52,7 @@ class ProfessorsList extends React.Component {
 
     renderProfessor(professor) {
         return <span>
-            <Col className="searchCol" xs={4}><Link to={`/professor/${professor.replace(" ", "%20")}`}>{professor}</Link></Col>
+            <Col className="searchCol" xs={4}><Link to={`/professor/${professor.replace(/ /g, "_")}`}>{professor}</Link></Col>
         </span>
     }
 

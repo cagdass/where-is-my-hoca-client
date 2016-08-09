@@ -17,7 +17,7 @@ class DepartmentDetails extends React.Component {
     }
 
     renderInstructor(instructor){
-        return <div><Link to={`/professor/${instructor.replace(" ", "%20")}`}>{instructor}</Link>
+        return <div><Link to={`/professor/${instructor.replace(/ /g, "_")}`}>{instructor}</Link>
             <br/></div>
     }
 

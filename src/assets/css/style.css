@@ -147,7 +147,8 @@ body {
 
 .footer {
     clear: both;
-    position: relative;
+    position: fixed;
+    bottom: 0;
     z-index: 10;
     height: 30px;
     margin-top: -3em;
