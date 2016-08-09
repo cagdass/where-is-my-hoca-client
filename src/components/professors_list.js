@@ -22,10 +22,8 @@ class ProfessorsList extends React.Component {
         return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     }
 
-    getSuggestions() {
+    getSuggestions(searchInput) {
         let {professors = []} = this.state;
-
-        let {searchInput} = this.state;
 
         const escapedValue = this.escapeRegexCharacters(searchInput.trim());
         const regex = new RegExp(escapedValue, 'i');
@@ -35,14 +33,19 @@ class ProfessorsList extends React.Component {
     }
 
     handleChange(e) {
-        this.setState({ searchInput: e.target.value });
-        this.getSuggestions();
+        let searchInput = e.target.value
+
+        // Update state.
+        this.setState({searchInput})
+
+        // Get suggestions based on the search.
+        this.getSuggestions(searchInput);
     }
 
     searchProfessors() {
         return scheduleService.findProfessors()
         .then(professors => {
-            this.setState({professors})
+            this.setState({"professors": professors, "filteredProfessors": professors})
         })
         .catch(searchError => this.setState({searchError}));
     }
