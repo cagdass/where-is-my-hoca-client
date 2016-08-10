@@ -17,7 +17,8 @@ class DepartmentList extends React.Component {
     searchDepartments() {
         return scheduleService.findDistinctDepartments()
             .then(departments => {
-                this.setState({departments})
+                this.setState({"departments": departments.sort()});
+
             })
             .catch(searchError => this.setState({searchError}));
     }
