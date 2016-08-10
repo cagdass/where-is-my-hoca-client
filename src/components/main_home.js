@@ -32,6 +32,11 @@ class MainHome extends React.Component {
                     </Nav>
                     <Nav>
                         <Navbar.Brand>
+                            <Link to="/buildings">Buildings</Link>
+                        </Navbar.Brand>
+                    </Nav>
+                    <Nav>
+                        <Navbar.Brand>
                             <Link to="/classrooms">Classrooms</Link>
                         </Navbar.Brand>
                     </Nav>

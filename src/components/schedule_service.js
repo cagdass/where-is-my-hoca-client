@@ -10,6 +10,13 @@ class DepartmentService {
         })
     }
 
+    buildingDetails(building) {
+        console.log("buildings/building?building=" + building);
+        return baseAPI.get("buildings/building/?building=" + building).catch(error => {
+            return null;
+        })
+    }
+
     departmentDetails(departmentCode) {
         console.log("departments/department?departmentCode=" + departmentCode);
         return baseAPI.get("departments/department?departmentCode=" + departmentCode).catch(error => {
@@ -20,6 +27,17 @@ class DepartmentService {
     findProfessors() {
         return baseAPI.get("professors").catch(error => {
             return {instructor: "David Daveport"}
+        })
+    }
+
+    findDistinctBuildings(searchParams, orderParams, skip, limit) {
+        return baseAPI.get("buildings", {
+            searchParams,
+            orderParams,
+            skip,
+            limit
+        }).catch(error => {
+            return ["EB", "B"];
         })
     }
 

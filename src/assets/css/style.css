@@ -162,8 +162,16 @@ body {
     padding-left: 15px;
 }
 
+.sortButton > .containerSortButton {
+    width: 40em;
+}
+
+.sortButton {
+    margin-left: 2em;
+}
+
 .bg-col1 {
-    background: red;
+    background: orange;
 }
 .bg-col2 {
     background: green;

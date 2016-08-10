@@ -8,7 +8,10 @@ class ProfessorsList extends React.Component {
         super(props, context, ...args);
         this.state = {
             professors : [],
-            searchInput: ''
+            searchInput: '',
+            "sort": "Sort Ascending",
+            "sorted": false,
+            "isDirty": false
         };
     }
 
@@ -42,10 +45,30 @@ class ProfessorsList extends React.Component {
         this.getSuggestions(searchInput);
     }
 
+    sortProfessors(){
+        var trsort = function(a,b){
+            return a.localeCompare(b);
+        };
+
+        let {filteredProfessors = [], sort, sorted, isDirty} = this.state;
+        if(isDirty){
+            if(sorted){
+                this.setState({"buildings": filteredProfessors.reverse(), "sort": "Sort Ascending", "sorted": false})
+            }
+            else{
+                this.setState({"buildings": filteredProfessors.reverse(), "sort": "Sort Descending", "sorted": true})
+            }
+        }
+        else{
+            this.setState({"buildings": filteredProfessors.sort(trsort), "sort": "Sort Descending", "sorted": true, "isDirty": true})
+        }
+    }
+
     searchProfessors() {
         return scheduleService.findProfessors()
         .then(professors => {
-            this.setState({"professors": professors, "filteredProfessors": professors})
+            this.setState({"professors": professors, "filteredProfessors": professors});
+            this.sortProfessors();
         })
         .catch(searchError => this.setState({searchError}));
     }
@@ -57,19 +80,29 @@ class ProfessorsList extends React.Component {
     }
 
     render() {
-        let {filteredProfessors = []} = this.state;
+        let {filteredProfessors = [], sort} = this.state;
 
         return ( <div>
+
                 <form>
                     <FormGroup
                         controlId="formBasicText">
                         <ControlLabel>Search for a professor</ControlLabel>
-                        <FormControl
-                            type="text"
-                            value={this.state.searchInput}
-                            placeholder="e.g. Abdullah Atalar"
-                            onChange={this.handleChange.bind(this)}
-                        />
+                        <Row>
+                            <Col xs={12} sm={12} md={7}>
+                                <FormControl
+                                    type="text"
+                                    value={this.state.searchInput}
+                                    placeholder="e.g. Abdullah Atalar"
+                                    onChange={this.handleChange.bind(this)}
+                                />
+                            </Col>
+                            <Col xs={8} sm={8} md={3}>
+                                <div className="containerSortButton">
+                                    <Button className="sortButtonProf" onClick={this.sortProfessors.bind(this)}>{sort}</Button>
+                                </div>
+                            </Col>
+                        </Row>
                         <FormControl.Feedback />
                     </FormGroup>
                 </form>
@@ -86,6 +119,7 @@ class ProfessorsList extends React.Component {
                             </tbody>
                         </Table>
                     </Col>
+
                 </Row>
             </div>
         );
