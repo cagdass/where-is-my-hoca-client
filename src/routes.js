@@ -7,6 +7,7 @@ import ProfessorsList from "./components/professor/professors_list";
 import ProfessorDetails from "./components/professor/professor_details";
 import BuildingList from "./components/building/building_list";
 import BuildingDetails from "./components/building/building_details";
+import ClassroomDetails from "./components/classroom/classroom_details"
 import NoMatch from "components/no_match";
 
 const routes = (
@@ -18,6 +19,7 @@ const routes = (
         <Route path="professor/:id" component={ProfessorDetails}/>
         <Route path="buildings" component={BuildingList}/>
         <Route path="building/:id" component={BuildingDetails}/>
+        <Route path="classroom/:id" component={ClassroomDetails}/>
         <Route path="*" component={NoMatch}/>
     </Route>
 );

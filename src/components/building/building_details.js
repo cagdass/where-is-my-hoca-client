@@ -21,8 +21,9 @@ class BuildingDetails extends React.Component {
 
     renderClassroom(classroom){
         return <div>
-            <Link to={"/classroom/" + classroom}>{classroom}</Link>
-            <br/>
+            <Col xs={3} className="searchCol">
+                <Link to={"/classroom/" + classroom}>{classroom}</Link>
+            </Col>
         </div>
     }
 

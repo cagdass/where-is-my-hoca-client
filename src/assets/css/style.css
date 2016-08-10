@@ -170,11 +170,18 @@ body {
     margin-left: 2em;
 }
 
+.bg-col {
+    border-radius: 5px;
+    padding: 10px;
+    padding-left: 20px;
+    /*text-align: center;*/
+}
+
 .bg-col1 {
     background: orange;
 }
 .bg-col2 {
-    background: green;
+    background: greenyellow;
 }
 .bg-col3 {
     background: deepskyblue;
@@ -183,7 +190,7 @@ body {
     background: yellow;
 }
 .bg-col5 {
-    background: orange;
+    background: orangered;
 }
 .bg-col6 {
     background: purple;
@@ -196,4 +203,16 @@ body {
 }
 .bg-col9 {
     background: blue;
+}
+
+.rowasd {
+    margin: -5px;
+}
+
+.colasd {
+    margin: 5px;
+}
+
+.dayCol {
+    text-align: center;
 }

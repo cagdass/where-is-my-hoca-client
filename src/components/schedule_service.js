@@ -10,6 +10,13 @@ class DepartmentService {
         })
     }
 
+    classroomDetails(classroom) {
+        console.log("classrooms/classroom?class=" + classroom);
+        return baseAPI.get("classrooms/classroom?classroom=" + classroom).catch(error => {
+            return null;
+        })
+    }
+
     buildingDetails(building) {
         console.log("buildings/building?building=" + building);
         return baseAPI.get("buildings/building/?building=" + building).catch(error => {
