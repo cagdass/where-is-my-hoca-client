@@ -181,10 +181,12 @@ body {
     background: orange;
 }
 .bg-col2 {
-    background: greenyellow;
+    background: indigo;
+    color:white;
 }
 .bg-col3 {
-    background: deepskyblue;
+    background: darkred;
+    color: white;
 }
 .bg-col4 {
     background: yellow;
@@ -193,7 +195,7 @@ body {
     background: orangered;
 }
 .bg-col6 {
-    background: purple;
+    background: deepskyblue;
 }
 .bg-col7 {
     background: burlywood;
@@ -202,7 +204,22 @@ body {
     background: palevioletred;
 }
 .bg-col9 {
-    background: blue;
+    background: steelblue;
+}
+.bg-col10 {
+    background: royalblue;
+}
+.bg-col11 {
+    background: greenyellow;
+}
+.bg-col12 {
+    background: indianred;
+}
+.bg-col13 {
+    background: deeppink;
+}
+.bg-col14 {
+    background: springgreen;
 }
 
 .rowasd {

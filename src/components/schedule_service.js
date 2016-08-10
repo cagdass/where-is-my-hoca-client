@@ -59,17 +59,18 @@ class DepartmentService {
         })
     }
 
-    updateUser(user_id, user) {
-      return baseAPI.post("users/update?user_id=" + user_id, user).then(result => this.retrieveAllUsers().then(() => result));
+    findDistinctClassrooms(searchParams, orderParams, skip, limit) {
+        return baseAPI.get("classrooms", {
+            searchParams,
+            orderParams,
+            skip,
+            limit
+        }).catch(error => {
+            return ["B-Z08", "EB-201"];
+        })
     }
 
-    saveUser(user) {
-        return baseAPI.post("users/save", user).then(result => this.retrieveAllUsers().then(() => result));
-    }
 
-    deleteUser(user_id) {
-        return baseAPI.delete("users/delete?user_id=" + user_id).then(result => this.retrieveAllUsers().then(() => result));
-    }
 }
 
 export default new DepartmentService();

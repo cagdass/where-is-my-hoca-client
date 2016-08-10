@@ -2,6 +2,7 @@ import React, {PropTypes} from "react";
 import {Button, Col, Glyphicon, Panel, Row, Table, Grid} from "react-bootstrap";
 import departmentService from "../schedule_service.js";
 import {Link} from "react-router";
+import scheduleFormatter from "../../utility/scheduler_formatter";
 
 class ProfessorDetails extends React.Component {
     constructor(props, context, ...args) {
@@ -19,7 +20,6 @@ class ProfessorDetails extends React.Component {
         let professor = this.props.params.id.replace(/_/g, " ");
         departmentService.professorDetails(professor).then(classes => {
             this.setState({classes});
-            this.formatSchedule(classes);
         })
         .catch(error => this.setState({error: error}))
         .then(() => this.setState({isLoaded: true}));
@@ -33,145 +33,22 @@ class ProfessorDetails extends React.Component {
         </tr>
     }
 
-    numerizeHour(hour){
-        // '08:40' returns 0, '12:30' returns 4
-        return Number(hour.split(":")[0]) - 8;
+    renderScheduleCol(schedule, hour, renderClassroom, index){
+        return  <Col xs={3} md={2} className={`bg-col ${schedule[index][hour].className}`}>{schedule[index][hour].courseCode != undefined && scheduleFormatter.prettifyCourse(schedule[index][hour]) + " "}
+            {renderClassroom && <Link to={`/classroom/${schedule[index][hour].location}`}>{schedule[index][hour].location}</Link>}
+            {schedule[index][hour].status != undefined && " " + schedule[index][hour].status}
+        </Col>
     }
 
-    getClassSpan(start, end){
-        var nums = [];
-        if(start > 4){
-            start -= 1;
-            end -=1;
-        }
-        for(var i = start; i < end; i++){
-            nums.push(i)
-        }
-
-        // 08:40, 10:30 would return, after stopping at numerizeHour(), [0, 1]
-        return nums;
-    }
-
-    numerizeDay(day){
-        if(day === 'Mon'){
-            return 0;
-        }
-        else if(day === 'Tue'){
-            return 1;
-        }
-        else if(day === 'Wed'){
-            return 2;
-        }
-        else if(day === 'Thu'){
-            return 3;
-        }
-        else if(day === 'Fri'){
-            return 4;
-        }
-        else{
-            return 5;
-        }
-    }
-
-
-
-    tokenizeLecture(lecture){
-        var day = lecture.day;
-        var start = lecture.hours[0];
-        var end = lecture.hours[1];
-        var location = lecture.location;
-        var status = lecture.status;
-
-        var dayNum = this.numerizeDay(day);
-        var classSpan = this.getClassSpan(this.numerizeHour(start), this.numerizeHour(end));
-
-        return {day, start, end, location, status, dayNum, classSpan};
-    }
-
-    formatSchedule(classes) {
-        var schedule = [
-            [{}, {}, {}, {}, {}, {}, {}, {}],
-            [{}, {}, {}, {}, {}, {}, {}, {}],
-            [{}, {}, {}, {}, {}, {}, {}, {}],
-            [{}, {}, {}, {}, {}, {}, {}, {}],
-            [{}, {}, {}, {}, {}, {}, {}, {}]
-        ];
-
-        for (var i = 0; i < classes.length; i++) {
-            var lectures = classes[i].lectures;
-            for (var j = 0;lectures != undefined && j < lectures.length; j++){
-               var tokenizedLecture = this.tokenizeLecture(lectures[j]);
-               var obj = {
-                   "departmentCode": classes[i].departmentCode,
-                   "courseCode": classes[i].courseCode,
-                   "section": classes[i].section,
-                   "status": tokenizedLecture.status,
-                   "location": tokenizedLecture.location,
-                   "className": "bg-col" + (i+1)
-               };
-
-
-
-               var day = tokenizedLecture.dayNum;
-               var hours = tokenizedLecture.classSpan;
-
-               for(var k = 0; k < hours.length; k++){
-                   let existingClass = schedule[day][hours[k]];
-
-                   // Meaning that (simply) the current hour is not empty.
-                   if(Object.getOwnPropertyNames(existingClass) > 0){
-                       if(existingClass.status != "[L]"){
-                        // If the current hour has a regular class, leave it be.
-                       }
-                       // Otherwise, replace it with a regular class.
-                       else{
-                           schedule[day][hours[k]] = obj;
-                       }
-                   }
-                   else{
-                       console.log("ASSIGNING")
-                       schedule[day][hours[k]] = obj;
-                   }
-               }
-            }
-        }
-
-        return schedule;
-    }
-
-    prettifyCourse(schedule){
-        return schedule.departmentCode + schedule.courseCode + "-" + schedule.section;
-    }
-
-    renderScheduleRow(schedule, hour){
+    renderScheduleRow(schedule, hour, renderClassroom){
         return <div>
-                <Col xs={3} md={2} className={`bg-col ${schedule[0][hour].className}`}>{schedule[0][hour].courseCode != undefined && this.prettifyCourse(schedule[0][hour]) + " "}
-                    <Link to={`/classroom/${schedule[0][hour].location}`}>{schedule[0][hour].location}</Link>
-                    {schedule[0][hour].status != undefined && " " + schedule[0][hour].status}
-                </Col>
-                <Col xs={3} md={2} className={`bg-col ${schedule[1][hour].className}`}>{schedule[1][hour].courseCode != undefined && this.prettifyCourse(schedule[1][hour]) + " "}
-                    <Link to={`/classroom/${schedule[1][hour].location}`}>{schedule[1][hour].location}</Link>
-                    {schedule[1][hour].status != undefined && " " + schedule[1][hour].status}
-                </Col>
-                <Col xs={3} md={2} className={`bg-col ${schedule[2][hour].className}`}>{schedule[2][hour].courseCode != undefined && this.prettifyCourse(schedule[2][hour]) + " "}
-                    <Link to={`/classroom/${schedule[2][hour].location}`}>{schedule[2][hour].location}</Link>
-                    {schedule[2][hour].status != undefined && " " + schedule[2][hour].status}
-                </Col>
-                <Col xs={3} md={2} className={`bg-col ${schedule[3][hour].className}`}>{schedule[3][hour].courseCode != undefined && this.prettifyCourse(schedule[3][hour]) + " "}
-                    <Link to={`/classroom/${schedule[3][hour].location}`}>{schedule[3][hour].location}</Link>
-                    {schedule[3][hour].status != undefined && " " + schedule[3][hour].status}
-                </Col>
-                <Col xs={3} md={2} className={`bg-col ${schedule[4][hour].className}`}>{schedule[4][hour].courseCode != undefined && this.prettifyCourse(schedule[4][hour]) + " "}
-                    <Link to={`/classroom/${schedule[4][hour].location}`}>{schedule[4][hour].location}</Link>
-                    {schedule[4][hour].status != undefined && " " + schedule[4][hour].status}
-                </Col>
-            </div>;
+            {[0,1,2,3,4].map(this.renderScheduleCol.bind(this, schedule, hour, renderClassroom))}
+        </div>;
     }
 
-    renderSchedule(){
-
+    renderSchedule(renderClassroom){
         let {classes = []} = this.state;
-        let schedule = this.formatSchedule(classes);
+        let schedule = scheduleFormatter.formatSchedule(classes);
         let marmara = "Marmara Tiem :(";
 
         console.log(schedule);
@@ -191,22 +68,22 @@ class ProfessorDetails extends React.Component {
                 <hr/>
                 <Row className="rowasd">
                     <Col xs={3} md={2}>08.40-09.30</Col>
-                    {this.renderScheduleRow(schedule, 0)}
+                    {this.renderScheduleRow(schedule, 0, renderClassroom)}
                 </Row>
                 <br/>
                 <Row className="rowasd">
                     <Col xs={3} md={2}>09.40-10.30</Col>
-                    {this.renderScheduleRow(schedule, 1)}
+                    {this.renderScheduleRow(schedule, 1, renderClassroom)}
                 </Row>
                 <br/>
                 <Row className="rowasd">
                     <Col xs={3} md={2}>10.40-11.30</Col>
-                    {this.renderScheduleRow(schedule, 2)}
+                    {this.renderScheduleRow(schedule, 2, renderClassroom)}
                 </Row>
                 <br/>
                 <Row className="rowasd">
                     <Col xs={3} md={2}>11.40-12.30</Col>
-                    {this.renderScheduleRow(schedule, 3)}
+                    {this.renderScheduleRow(schedule, 3, renderClassroom)}
                 </Row>
                 <br/>
                 <Row className="rowasd">
@@ -220,22 +97,22 @@ class ProfessorDetails extends React.Component {
                 <br/>
                 <Row className="rowasd">
                     <Col xs={3} md={2}>13.40-14.30</Col>
-                    {this.renderScheduleRow(schedule, 4)}
+                    {this.renderScheduleRow(schedule, 4, renderClassroom)}
                 </Row>
                 <br/>
                 <Row className="rowasd">
                     <Col xs={3} md={2}>14.40-15.30</Col>
-                    {this.renderScheduleRow(schedule, 5)}
+                    {this.renderScheduleRow(schedule, 5, renderClassroom)}
                 </Row>
                 <br/>
                 <Row className="rowasd">
                     <Col xs={3} md={2}>15.40-16.30</Col>
-                    {this.renderScheduleRow(schedule, 6)}
+                    {this.renderScheduleRow(schedule, 6, renderClassroom)}
                 </Row>
                 <br/>
                 <Row className="rowasd">
                     <Col xs={3} md={2}>16.40-17.30</Col>
-                    {this.renderScheduleRow(schedule, 7)}
+                    {this.renderScheduleRow(schedule, 7, renderClassroom)}
                 </Row>
             </Table>
             </div>
@@ -245,9 +122,11 @@ class ProfessorDetails extends React.Component {
     render() {
         let {classes = []} = this.state;
         let professor = this.props.params.id.replace(/_/g, " ");
+        let renderClassroom = true;
+
         return (<div>
             <h2>Search results for {professor}:</h2>
-            <pre>{JSON.stringify(classes)}</pre>
+            {/*<pre>{JSON.stringify(classes)}</pre>*/}
             <Table striped condensed hover>
                 <thead>
                     <tr>
@@ -262,7 +141,7 @@ class ProfessorDetails extends React.Component {
             </Table>
             <br/>
             <br/>
-            {this.renderSchedule()}
+            {this.renderSchedule(renderClassroom)}
         </div>);
     }
 }
