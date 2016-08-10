@@ -13,7 +13,6 @@ There is a back-end application running at http://cgds.me:3000, you can find the
 ## Dependencies
 
 * [npm](https://docs.npmjs.com/cli/install)
-* [node](https://nodejs.org/en/download/package-manager/)
 
 ## Usage
 	npm install
