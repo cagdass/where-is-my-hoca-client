@@ -1,7 +1,11 @@
 #Where is my Hoca? React
 
-React application à Where is my Hoca?
+Front-end application in React for **Where is my Hoca?**
 
 ## Usage
 	npm install
 	npm run dev # Open localhost:8080 in browser
+
+## Notes:
+
+Soon?
