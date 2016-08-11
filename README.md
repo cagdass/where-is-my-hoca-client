@@ -3,7 +3,7 @@
 Front-end application in React for **Where is my Hoca?**
 
 * Find the weekly schedules of Bilkent professors.
-* Find the weekly schedules of classrooms. (Right, might come in handy when you are stalking a girl)
+* Find the weekly schedules of classrooms. 
 * **Not yet implemented:** Query the empty classrooms at a given time.
 
 You can find the application deployed at [http://cgds.me/whereismyhoca](http://cgds.me/whereismyhoca)
