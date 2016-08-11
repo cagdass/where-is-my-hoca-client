@@ -104,7 +104,7 @@ class ProfessorsList extends React.Component {
                 "sorted": true,
                 "isDirty": true,
                 "numItems": numItemsNew,
-                "activeFilteredProfessors": filteredProfessors.slice(0, Math.floor(filteredProfessors.length / numItemsN) + 1)
+                "activeFilteredProfessors": filteredProfessors.slice(0, Math.floor(filteredProfessors.length / numItemsNew) + 1)
             })
         }
     }
