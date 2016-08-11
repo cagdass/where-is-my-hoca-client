@@ -6,7 +6,7 @@ class About extends React.Component {
     render() {
         return (<div>
             <Row>
-                <h2>Where is my Hoca? (and stalk girls)</h2>
+                <h2>Where is my Hoca?</h2>
             </Row>
             <Row>
                 <hr/>
@@ -15,6 +15,10 @@ class About extends React.Component {
                 <p>I meant to work on a web application to share all the professors' schedules and the classroom schedules for some time.</p>
                 <br/>
                 <p>Learning <i>some</i> React made it possible. So thanks go to <a href="http://20satir.com">20satir</a> where I got to learn what I learned and also Facebook, who made React in the first place.</p>
+                <br/>
+                <p>This application, and the accompanying server application are open-source at:</p>
+                <p><a href="https://github.com/cagdass/where-is-my-hoca-react">https://github.com/cagdass/where-is-my-hoca-react</a></p>
+                <p><a href="https://github.com/cagdass/where-is-my-hoca-server">https://github.com/cagdass/where-is-my-hoca-server</a></p>
             </Row>
         </div>)
     }

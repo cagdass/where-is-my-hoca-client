@@ -18,7 +18,7 @@ class MainHome extends React.Component {
             <Navbar>
                 <Navbar.Header>
                     <Navbar.Brand>
-                        <Link to="/"><b>Where is my Hoca? v0.0.11</b></Link>
+                        <Link to="/"><b>Where is my Hoca? v0.0.12</b></Link>
                     </Navbar.Brand>
                     <Navbar.Toggle />
                 </Navbar.Header>
@@ -45,7 +45,7 @@ class MainHome extends React.Component {
                     </Nav>
                     <Nav pullRight>
                         <Navbar.Brand>
-                            <Link to="/about">About</Link>
+                            <Link to="/about"><b>About</b></Link>
                         </Navbar.Brand>
                     </Nav>
                 </Navbar.Collapse>
