@@ -81,7 +81,7 @@ class ProfessorsList extends React.Component {
 
     renderProfessor(professor) {
         return <span>
-            <Col className="searchCol" xs={8}><Link to={`/hoca/${professor.replace(/ /g, "_")}`}>{professor}</Link></Col>
+            <Col className="searchCol" xs={6}><Link to={`/hoca/${professor.replace(/ /g, "_")}`}>{professor}</Link></Col>
         </span>
     }
 
