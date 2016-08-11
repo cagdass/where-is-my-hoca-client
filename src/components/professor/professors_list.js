@@ -75,7 +75,7 @@ class ProfessorsList extends React.Component {
 
     renderProfessor(professor) {
         return <span>
-            <Col className="searchCol" xs={4}><Link to={`/professor/${professor.replace(/ /g, "_")}`}>{professor}</Link></Col>
+            <Col className="searchCol" xs={4}><Link to={`/hoca/${professor.replace(/ /g, "_")}`}>{professor}</Link></Col>
         </span>
     }
 
@@ -83,45 +83,44 @@ class ProfessorsList extends React.Component {
         let {filteredProfessors = [], sort} = this.state;
 
         return ( <div>
+            <form>
+                <FormGroup
+                    controlId="formBasicText">
+                    <ControlLabel>Search for a hoca</ControlLabel>
+                    <Row>
+                        <Col xs={12} sm={12} md={7}>
+                            <FormControl
+                                type="text"
+                                value={this.state.searchInput}
+                                placeholder="e.g. Abdullah Atalar"
+                                onChange={this.handleChange.bind(this)}
+                            />
+                        </Col>
+                        <Col xs={8} sm={8} md={3}>
+                            <div className="containerSortButton">
+                                <Button className="sortButtonProf" onClick={this.sortProfessors.bind(this)}>{sort}</Button>
+                            </div>
+                        </Col>
+                    </Row>
+                    <FormControl.Feedback />
+                </FormGroup>
+            </form>
+            <Row>
+                <Col xs={40} sm={30} md={10}>
+                    <Table>
+                        <thead>
+                        <tr>
+                            <th>Hocas</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {filteredProfessors.map(this.renderProfessor.bind(this))}
+                        </tbody>
+                    </Table>
+                </Col>
 
-                <form>
-                    <FormGroup
-                        controlId="formBasicText">
-                        <ControlLabel>Search for a professor</ControlLabel>
-                        <Row>
-                            <Col xs={12} sm={12} md={7}>
-                                <FormControl
-                                    type="text"
-                                    value={this.state.searchInput}
-                                    placeholder="e.g. Abdullah Atalar"
-                                    onChange={this.handleChange.bind(this)}
-                                />
-                            </Col>
-                            <Col xs={8} sm={8} md={3}>
-                                <div className="containerSortButton">
-                                    <Button className="sortButtonProf" onClick={this.sortProfessors.bind(this)}>{sort}</Button>
-                                </div>
-                            </Col>
-                        </Row>
-                        <FormControl.Feedback />
-                    </FormGroup>
-                </form>
-                <Row>
-                    <Col xs={40} sm={30} md={10}>
-                        <Table>
-                            <thead>
-                            <tr>
-                                <th>Professor</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {filteredProfessors.map(this.renderProfessor.bind(this))}
-                            </tbody>
-                        </Table>
-                    </Col>
-
-                </Row>
-            </div>
+            </Row>
+        </div>
         );
     }
 }

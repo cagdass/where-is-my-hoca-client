@@ -9,19 +9,21 @@ import BuildingList from "./components/building/building_list";
 import BuildingDetails from "./components/building/building_details";
 import ClassroomList from "./components/classroom/classroom_list";
 import ClassroomDetails from "./components/classroom/classroom_details";
-import NoMatch from "components/no_match";
+import About from "./components/_components/about";
+import NoMatch from "components/_components/no_match";
 
 const routes = (
     <Route path="/" component={MainHome}>
-        <IndexRoute component={DepartmentList}/>
+        <IndexRoute component={ProfessorsList}/>
         <Route path="departments" component={DepartmentList}/>
-        <Route path="professors" component={ProfessorsList}/>
+        <Route path="hocas" component={ProfessorsList}/>
         <Route path="department/:id" component={DepartmentDetails}/>
-        <Route path="professor/:id" component={ProfessorDetails}/>
+        <Route path="hoca/:id" component={ProfessorDetails}/>
         <Route path="buildings" component={BuildingList}/>
         <Route path="building/:id" component={BuildingDetails}/>
         <Route path="classrooms" component={ClassroomList}/>
         <Route path="classroom/:id" component={ClassroomDetails}/>
+        <Route path="about" component={About}/>
         <Route path="*" component={NoMatch}/>
     </Route>
 );

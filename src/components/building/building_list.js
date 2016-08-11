@@ -51,29 +51,27 @@ class BuildingList extends React.Component {
     render() {
         let {buildings = [], sort, sorted, isDirty} = this.state;
 
-        return ( <div>
-                <Row>
-                    <Col xs={25} sm={25} md={8}>
-                        <Table>
-                            <thead>
+        return <div>
+            <Row>
+                <Col xs={25} sm={25} md={8}>
+                    <Table>
+                        <thead>
                             <tr>
                                 <th>Buildings</th>
-
                             </tr>
-                            </thead>
-                            <tbody>
+                        </thead>
+                        <tbody>
                             {buildings.map(this.renderBuilding.bind(this))}
-                            </tbody>
-                        </Table>
-                    </Col>
-                    <Col xs={8} sm={8} md={3}>
-                        <div className="containerSortButton">
-                            <Button className="sortButton" onClick={this.sortBuildings.bind(this)}>{sort}</Button>
-                        </div>
-                    </Col>
-                </Row>
-            </div>
-        );
+                        </tbody>
+                    </Table>
+                </Col>
+                <Col xs={8} sm={8} md={3}>
+                    <div className="containerSortButton">
+                        <Button className="sortButton" onClick={this.sortBuildings.bind(this)}>{sort}</Button>
+                    </div>
+                </Col>
+            </Row>
+        </div>;
     }
 }
 

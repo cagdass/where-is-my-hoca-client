@@ -44,7 +44,6 @@ class BuildingDetails extends React.Component {
         }
 
         this.setState({"distinctClassrooms": distinctClassrooms.sort()})
-
     }
 
     render() {

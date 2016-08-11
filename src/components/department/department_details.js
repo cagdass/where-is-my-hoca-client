@@ -3,46 +3,55 @@ import {Button, Col, Glyphicon, Panel, Row, Table} from "react-bootstrap";
 import {Link} from "react-router";
 import departmentService from "../schedule_service.js";
 
+/*
+    All classes from a department is listed.
+ */
+
 class DepartmentDetails extends React.Component {
     constructor(props, context, ...args) {
         super(props, context, ...args);
         this.state = {};
     }
 
+    // Retrieve classes from this department from the back-end.
     componentWillMount() {
-        console.log(this.props.params)
         departmentService.departmentDetails(this.props.params.id).then(classes => {this.setState({classes});})
-            .catch(error => this.setState({error: error}))
-            .then(() => this.setState({isLoaded: true}));
+        .catch(error => this.setState({error: error}))
+        .then(() => this.setState({isLoaded: true}));
     }
 
+    // Render links to the professor.
     renderInstructor(instructor){
-        return <div><Link to={`/professor/${instructor.replace(/ /g, "_")}`}>{instructor}</Link>
-            <br/></div>
+        return <div>
+            <Link to={`/hoca/${instructor.replace(/ /g, "_")}`}>{instructor}</Link>
+            <br/>
+        </div>
     }
 
+    // Display course information: Professor, course title, department, course code and section.
     renderClass(clase, index) {
       return <tr key={index}>
-        <td>{clase.instructor.map(this.renderInstructor.bind(this))}</td>
-        <td>{clase.title}</td>
-        <td>{clase.departmentCode + clase.courseCode + "-" + clase.section}</td>
+            <td>{clase.instructor.map(this.renderInstructor.bind(this))}</td>
+            <td>{clase.title}</td>
+            <td>{clase.departmentCode + clase.courseCode + "-" + clase.section}</td>
         </tr>
     }
 
     render() {
         let {classes = []} = this.state;
-        return (<Table striped condensed hover>
-                  <thead>
-                  <tr>
-                      <th>Instructor</th>
-                      <th>Title</th>
-                      <th>Course</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                    {classes.map(this.renderClass.bind(this))}
-                  </tbody>
-              </Table>);
+
+        return <Table striped condensed hover>
+            <thead>
+                <tr>
+                    <th>Instructor</th>
+                    <th>Title</th>
+                    <th>Course</th>
+                </tr>
+            </thead>
+            <tbody>
+                {classes.map(this.renderClass.bind(this))}
+            </tbody>
+        </Table>;
     }
 }
 
@@ -51,6 +60,5 @@ DepartmentDetails.contextTypes = {
         return React.PropTypes.func.isRequired;
     }
 };
-
 
 export default DepartmentDetails;
