@@ -18,7 +18,7 @@ class MainHome extends React.Component {
             <Navbar>
                 <Navbar.Header>
                     <Navbar.Brand>
-                        <Link to="/"><b>Where is my Hoca? v.0.1</b></Link>
+                        <Link to="/"><b>Where is my Hoca? v0.0.11</b></Link>
                     </Navbar.Brand>
                     <Navbar.Toggle />
                 </Navbar.Header>
