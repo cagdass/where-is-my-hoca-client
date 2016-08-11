@@ -1,5 +1,5 @@
 import React, {PropTypes} from "react";
-import {Button, FormControl, FormGroup, ControlLabel, HelpBlock, Col, Glyphicon, Modal, Panel, Row, Table} from "react-bootstrap";
+import {Button, FormControl, FormGroup, ControlLabel, Pagination, HelpBlock, Col, Glyphicon, Modal, Panel, Row, Table} from "react-bootstrap";
 import {Link} from "react-router";
 import scheduleService from "../schedule_service"
 import Loader from "react-loader";
@@ -13,7 +13,11 @@ class ProfessorsList extends React.Component {
             searchInput: '',
             "sort": "Sort Ascending",
             "sorted": false,
-            "isDirty": false
+            "isDirty": false,
+            "activePage": 1,
+            "activeFilteredProfessors": [],
+            "numItems": 12,
+            "numProfessors": 1
         };
     }
 
@@ -32,20 +36,33 @@ class ProfessorsList extends React.Component {
     }
 
     getSuggestions(searchInput) {
-        let {professors = []} = this.state;
+        let {professors = [], numProfessors, numItems, itemsPerPage} = this.state;
 
         const escapedValue = this.escapeRegexCharacters(searchInput.trim());
         const regex = new RegExp(escapedValue, 'i');
 
         let filteredProfessors = professors.filter(professor => regex.test(professor));
-        this.setState({filteredProfessors});
+
+        let numItemsNew = Math.floor(filteredProfessors.length / itemsPerPage) + 1;
+
+        console.log(`Filtered professors length is ${filteredProfessors.length}`);
+        console.log(`New numItems is ${numItemsNew}`);
+
+        this.setState({
+            "filteredProfessors": filteredProfessors,
+            "numItems": numItemsNew,
+            "activeFilteredProfessors": filteredProfessors.slice(0, Math.floor(filteredProfessors.length / numItemsNew) + 1)
+        });
     }
 
     handleChange(e) {
-        let searchInput = e.target.value
+        let searchInput = e.target.value;
 
         // Update state.
-        this.setState({searchInput})
+        this.setState({
+            "searchInput": searchInput,
+            "activePage": 1
+        });
 
         // Get suggestions based on the search.
         this.getSuggestions(searchInput);
@@ -56,24 +73,66 @@ class ProfessorsList extends React.Component {
             return a.localeCompare(b);
         };
 
-        let {filteredProfessors = [], sort, sorted, isDirty} = this.state;
+        let {filteredProfessors = [], sort, sorted, isDirty, itemsPerPage, numItems} = this.state;
+
+        let numItemsNew = Math.floor(filteredProfessors.length / itemsPerPage) + 1;
+
         if(isDirty){
             if(sorted){
-                this.setState({"buildings": filteredProfessors.reverse(), "sort": "Sort Ascending", "sorted": false})
+                this.setState({
+                    "filteredProfessors": filteredProfessors.reverse(),
+                    "sort": "Sort Ascending",
+                    "sorted": false,
+                    "numItems": numItemsNew,
+                    "activeFilteredProfessors": filteredProfessors.slice(0, Math.floor(filteredProfessors.length / numItemsNew) + 1)
+                })
             }
             else{
-                this.setState({"buildings": filteredProfessors.reverse(), "sort": "Sort Descending", "sorted": true})
+                this.setState({
+                    "filteredProfessors": filteredProfessors.reverse(),
+                    "sort": "Sort Descending",
+                    "sorted": true,
+                    "numItems": numItemsNew,
+                    "activeFilteredProfessors": filteredProfessors.slice(0, Math.floor(filteredProfessors.length / numItemsNew) + 1)
+                })
             }
         }
         else{
-            this.setState({"buildings": filteredProfessors.sort(trsort), "sort": "Sort Descending", "sorted": true, "isDirty": true})
+            this.setState({
+                "filteredProfessors": filteredProfessors.sort(trsort),
+                "sort": "Sort Descending",
+                "sorted": true,
+                "isDirty": true,
+                "numItems": numItemsNew,
+                "activeFilteredProfessors": filteredProfessors.slice(0, Math.floor(filteredProfessors.length / numItemsN) + 1)
+            })
         }
     }
 
+    handleSelect(eventKey) {
+        let {filteredProfessors = [], itemsPerPage} = this.state;
+        let start = (eventKey - 1) * itemsPerPage;
+        let end = start + itemsPerPage <= filteredProfessors.length ? start + itemsPerPage : filteredProfessors.length;
+        let activeFilteredProfessors = filteredProfessors.slice(start, end);
+
+
+        this.setState({
+            activePage: eventKey,
+            "activeFilteredProfessors": activeFilteredProfessors
+        });
+    }
+
     searchProfessors() {
+        let {numItems} = this.state;
+
         return scheduleService.findProfessors()
         .then(professors => {
-            this.setState({"professors": professors, "filteredProfessors": professors});
+            this.setState({
+                "professors": professors,
+                "filteredProfessors": professors,
+                "numProfessors": professors.length,
+                "itemsPerPage": Math.floor(professors.length / numItems) + 1
+            });
             this.sortProfessors();
         })
         .catch(searchError => this.setState({searchError}));
@@ -86,7 +145,7 @@ class ProfessorsList extends React.Component {
     }
 
     render() {
-        let {filteredProfessors = [], sort, loaded} = this.state;
+        let {activeFilteredProfessors = [], sort, loaded, numItems} = this.state;
 
         return ( <div>
             <form>
@@ -113,6 +172,16 @@ class ProfessorsList extends React.Component {
             </form>
             <Row>
                 <Col xs={40} sm={30} md={10}>
+                    <Pagination
+                        bsSize="medium"
+                        items={numItems}
+                        activePage={this.state.activePage}
+                        onSelect={this.handleSelect.bind(this)} />
+                </Col>
+            </Row>
+            <br />
+            <Row>
+                <Col xs={40} sm={30} md={10}>
                     <Table>
                         <thead>
                         <tr>
@@ -121,12 +190,20 @@ class ProfessorsList extends React.Component {
                         </thead>
                         <tbody>
                             <Loader loaded={loaded}>
-                                {filteredProfessors.map(this.renderProfessor.bind(this))}
+                                {activeFilteredProfessors.map(this.renderProfessor.bind(this))}
                             </Loader>
                         </tbody>
                     </Table>
                 </Col>
-
+            </Row>
+            <Row>
+                <Col xs={40} sm={30} md={10}>
+                    <Pagination
+                        bsSize="medium"
+                        items={numItems}
+                        activePage={this.state.activePage}
+                        onSelect={this.handleSelect.bind(this)} />
+                </Col>
             </Row>
         </div>
         );
