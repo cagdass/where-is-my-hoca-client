@@ -4,6 +4,7 @@ import {Link} from "react-router";
 import departmentService from "../schedule_service.js";
 import scheduleFormatter from "../../utility/scheduler_formatter";
 import Schedule from "../schedule";
+import Loader from "react-loader";
 
 /*
     Classroom with its weekly schedule.
@@ -13,13 +14,15 @@ class ClassroomDetails extends React.Component {
     constructor(props, context, ...args) {
         super(props, context, ...args);
         // Initialize empty schedule.
-        this.state = {schedule: [
-            [{}, {}, {}, {}, {}, {}, {}, {}],
-            [{}, {}, {}, {}, {}, {}, {}, {}],
-            [{}, {}, {}, {}, {}, {}, {}, {}],
-            [{}, {}, {}, {}, {}, {}, {}, {}],
-            [{}, {}, {}, {}, {}, {}, {}, {}]
-        ]};
+        this.state = {
+            loaded: false,
+            schedule:
+                [[{}, {}, {}, {}, {}, {}, {}, {}],
+                [{}, {}, {}, {}, {}, {}, {}, {}],
+                [{}, {}, {}, {}, {}, {}, {}, {}],
+                [{}, {}, {}, {}, {}, {}, {}, {}],
+                [{}, {}, {}, {}, {}, {}, {}, {}]]
+        };
     }
 
     componentWillMount() {
@@ -30,7 +33,7 @@ class ClassroomDetails extends React.Component {
             this.setState({classes});
         })
         .catch(error => this.setState({error: error}))
-        .then(() => this.setState({isLoaded: true}));
+        .then(() => this.setState({loaded: true}));
     }
 
     renderInstructor(instructor){
@@ -44,14 +47,14 @@ class ClassroomDetails extends React.Component {
     renderClass(clase, index) {
         // Render a given class, display instructor, with a link to the instructor's page, the title of the course and the department code.
         return <tr key={index}>
-            <td>{clase.instructor.map(this.renderInstructor.bind(this))}</td>
-            <td>{clase.title}</td>
-            <td>{clase.departmentCode + clase.courseCode + "-" + clase.section}</td>
-        </tr>
+                <td>{clase.instructor.map(this.renderInstructor.bind(this))}</td>
+                <td>{clase.title}</td>
+                <td>{clase.departmentCode + clase.courseCode + "-" + clase.section}</td>
+            </tr>;
     }
 
     render() {
-        let {classes = []} = this.state;
+        let {classes = [], loaded} = this.state;
         let classroom = this.props.params.id;
         let renderClassroom = false;
 
@@ -71,7 +74,9 @@ class ClassroomDetails extends React.Component {
             </Table>
             <br/>
             <br/>
-            <Schedule classes={classes} classroom={classroom} renderClassroom={renderClassroom} xs={2} md={2} />
+            <Loader loaded={loaded}>
+                <Schedule classes={classes} classroom={classroom} renderClassroom={renderClassroom} xs={2} md={2} />
+            </Loader>
         </div>);
     }
 }

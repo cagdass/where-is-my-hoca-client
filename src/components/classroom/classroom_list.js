@@ -1,7 +1,8 @@
 import React, {PropTypes} from "react";
 import {Button, FormControl, FormGroup, ControlLabel, HelpBlock, Col, Glyphicon, Modal, Panel, Row, Table} from "react-bootstrap";
 import {Link} from "react-router";
-import scheduleService from "../schedule_service"
+import scheduleService from "../schedule_service";
+import Loader from "react-loader";
 
 /*
     List of all classrooms.
@@ -18,6 +19,7 @@ class ClassroomList extends React.Component {
         this.state = {
             "classrooms": [],
             searchInput: '',
+            loaded: false,
             "sort": "Sort Ascending",
             "sorted": false,
             "isDirty": false
@@ -28,7 +30,7 @@ class ClassroomList extends React.Component {
     componentWillMount() {
         let {searchParams, orderParams, pager} = this.state;
         this.searchClassrooms(searchParams, orderParams, pager).then(() => {
-            this.setState({isLoaded: true});
+            this.setState({loaded: true});
             this.sortClassrooms();
         });
     }
@@ -96,7 +98,7 @@ class ClassroomList extends React.Component {
     }
 
     render() {
-        let {filteredClassrooms = [], sort, sorted, isDirty} = this.state;
+        let {filteredClassrooms = [], sort, sorted, isDirty, loaded} = this.state;
 
         return <div>
             <form>
@@ -130,7 +132,9 @@ class ClassroomList extends React.Component {
                             </tr>
                         </thead>
                         <tbody>
-                            {filteredClassrooms.map(this.renderBuilding.bind(this))}
+                            <Loader loaded={loaded}>
+                                {filteredClassrooms.map(this.renderBuilding.bind(this))}
+                            </Loader>
                         </tbody>
                     </Table>
                 </Col>

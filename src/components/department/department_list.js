@@ -2,6 +2,7 @@ import React, {PropTypes} from "react";
 import {Button, FormControl, FormGroup, ControlLabel, HelpBlock, Col, Glyphicon, Modal, Panel, Row, Table} from "react-bootstrap";
 import {Link} from "react-router";
 import scheduleService from "../schedule_service"
+import Loader from "react-loader";
 
 /*
     The list of all departments.
@@ -10,12 +11,14 @@ import scheduleService from "../schedule_service"
 class DepartmentList extends React.Component {
     constructor(props, context, ...args) {
         super(props, context, ...args);
-        this.state = {};
+        this.state = {
+            loaded: false
+        };
     }
 
     componentWillMount() {
         let {searchParams, orderParams, pager} = this.state;
-        this.searchDepartments(searchParams, orderParams, pager).then(() => this.setState({isLoaded: true}));
+        this.searchDepartments(searchParams, orderParams, pager).then(() => this.setState({loaded: true}));
     }
 
     // Retrieve all departments from the back-end service and sort the array of departments alphabetically.
@@ -35,7 +38,7 @@ class DepartmentList extends React.Component {
     }
 
     render() {
-        let {departments = []} = this.state;
+        let {departments = [], loaded} = this.state;
 
         return ( <div>
             <Row>
@@ -47,7 +50,9 @@ class DepartmentList extends React.Component {
                             </tr>
                         </thead>
                         <tbody>
-                            {departments.map(this.renderDepartment.bind(this))}
+                            <Loader loaded={loaded}>
+                                {departments.map(this.renderDepartment.bind(this))}
+                            </Loader>
                         </tbody>
                     </Table>
                 </Col>

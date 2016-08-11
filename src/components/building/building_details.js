@@ -2,17 +2,20 @@ import React, {PropTypes} from "react";
 import {Button, Col, Glyphicon, Panel, Row, Table} from "react-bootstrap";
 import {Link} from "react-router";
 import departmentService from "../schedule_service.js";
+import Loader from "react-loader"
 
 class BuildingDetails extends React.Component {
     constructor(props, context, ...args) {
         super(props, context, ...args);
-        this.state = {};
+        this.state = {
+            "loaded": false
+        };
     }
 
     componentWillMount() {
         console.log(this.props.params);
         departmentService.buildingDetails(this.props.params.id).then(classrooms => {
-            this.setState({classrooms});
+            this.setState({"classrooms": classrooms, "loaded": true});
             this.setDistinctClassrooms();
         })
         .catch(error => this.setState({error: error}))
@@ -47,7 +50,7 @@ class BuildingDetails extends React.Component {
     }
 
     render() {
-        let {classrooms = [], distinctClassrooms = []} = this.state;
+        let {classrooms = [], distinctClassrooms = [], loaded} = this.state;
         console.log(classrooms.lectures);
         return (<Table striped condensed hover>
             <thead>
@@ -56,7 +59,9 @@ class BuildingDetails extends React.Component {
                 </tr>
             </thead>
             <tbody>
-                {distinctClassrooms.map(this.renderClassroom.bind(this))}
+                <Loader loaded={loaded}>
+                    {distinctClassrooms.map(this.renderClassroom.bind(this))}
+                </Loader>
             </tbody>
         </Table>);
     }

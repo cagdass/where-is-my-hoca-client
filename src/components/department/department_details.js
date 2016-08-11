@@ -2,6 +2,7 @@ import React, {PropTypes} from "react";
 import {Button, Col, Glyphicon, Panel, Row, Table} from "react-bootstrap";
 import {Link} from "react-router";
 import departmentService from "../schedule_service.js";
+import Loader from "react-loader";
 
 /*
     All classes from a department is listed.
@@ -10,14 +11,16 @@ import departmentService from "../schedule_service.js";
 class DepartmentDetails extends React.Component {
     constructor(props, context, ...args) {
         super(props, context, ...args);
-        this.state = {};
+        this.state = {
+            loaded: false
+        };
     }
 
     // Retrieve classes from this department from the back-end.
     componentWillMount() {
         departmentService.departmentDetails(this.props.params.id).then(classes => {this.setState({classes});})
         .catch(error => this.setState({error: error}))
-        .then(() => this.setState({isLoaded: true}));
+        .then(() => this.setState({loaded: true}));
     }
 
     // Render links to the professor.
@@ -38,7 +41,7 @@ class DepartmentDetails extends React.Component {
     }
 
     render() {
-        let {classes = []} = this.state;
+        let {classes = [], loaded} = this.state;
 
         return <Table striped condensed hover>
             <thead>

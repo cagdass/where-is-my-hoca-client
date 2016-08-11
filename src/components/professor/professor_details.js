@@ -3,11 +3,14 @@ import {Button, Col, Glyphicon, Panel, Row, Table, Grid} from "react-bootstrap";
 import departmentService from "../schedule_service.js";
 import {Link} from "react-router";
 import Schedule from "../schedule";
+import Loader from "react-loader";
 
 class ProfessorDetails extends React.Component {
     constructor(props, context, ...args) {
         super(props, context, ...args);
-        this.state = {schedule: [
+        this.state = {
+            loaded: false,
+            schedule: [
             [{}, {}, {}, {}, {}, {}, {}, {}],
             [{}, {}, {}, {}, {}, {}, {}, {}],
             [{}, {}, {}, {}, {}, {}, {}, {}],
@@ -19,7 +22,7 @@ class ProfessorDetails extends React.Component {
     componentWillMount() {
         let professor = this.props.params.id.replace(/_/g, " ");
         departmentService.professorDetails(professor).then(classes => {
-            this.setState({classes});
+            this.setState({"classes": classes, "loaded": true});
         })
         .catch(error => this.setState({error: error}))
         .then(() => this.setState({isLoaded: true}));
@@ -34,7 +37,7 @@ class ProfessorDetails extends React.Component {
     }
 
     render() {
-        let {classes = []} = this.state;
+        let {classes = [], loaded} = this.state;
         let professor = this.props.params.id.replace(/_/g, " ");
         let renderClassroom = true;
 
@@ -54,7 +57,9 @@ class ProfessorDetails extends React.Component {
             </Table>
             <br/>
             <br/>
-            <Schedule classes={classes} renderClassroom={renderClassroom} xs={2} md={2} />
+            <Loader loaded={loaded}>
+                <Schedule classes={classes} renderClassroom={renderClassroom} xs={2} md={2} />
+            </Loader>
         </div>);
     }
 }

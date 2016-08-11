@@ -233,3 +233,12 @@ body {
 .dayCol {
     text-align: center;
 }
+
+.loader {
+    position: fixed;
+    padding-top: 20%;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 9999;
+}

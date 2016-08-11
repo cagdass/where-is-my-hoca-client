@@ -2,12 +2,14 @@ import React, {PropTypes} from "react";
 import {Button, FormControl, FormGroup, ControlLabel, HelpBlock, Col, Glyphicon, Modal, Panel, Row, Table} from "react-bootstrap";
 import {Link} from "react-router";
 import scheduleService from "../schedule_service"
+import Loader from "react-loader";
 
 class ProfessorsList extends React.Component {
     constructor(props, context, ...args) {
         super(props, context, ...args);
         this.state = {
             professors : [],
+            loaded: false,
             searchInput: '',
             "sort": "Sort Ascending",
             "sorted": false,
@@ -17,7 +19,11 @@ class ProfessorsList extends React.Component {
 
     componentWillMount() {
         let {searchParams, orderParams, pager} = this.state;
-        this.searchProfessors(searchParams, orderParams, pager).then(() => this.setState({isLoaded: true}));
+        this.searchProfessors(searchParams, orderParams, pager)
+        .then(() => this.setState({loaded: true}))
+        .catch(error => {
+            console.error(error);
+        });
     }
 
     // Credits go to react-auto-suggest
@@ -75,12 +81,12 @@ class ProfessorsList extends React.Component {
 
     renderProfessor(professor) {
         return <span>
-            <Col className="searchCol" xs={4}><Link to={`/hoca/${professor.replace(/ /g, "_")}`}>{professor}</Link></Col>
+            <Col className="searchCol" xs={8}><Link to={`/hoca/${professor.replace(/ /g, "_")}`}>{professor}</Link></Col>
         </span>
     }
 
     render() {
-        let {filteredProfessors = [], sort} = this.state;
+        let {filteredProfessors = [], sort, loaded} = this.state;
 
         return ( <div>
             <form>
@@ -114,7 +120,9 @@ class ProfessorsList extends React.Component {
                         </tr>
                         </thead>
                         <tbody>
-                        {filteredProfessors.map(this.renderProfessor.bind(this))}
+                            <Loader loaded={loaded}>
+                                {filteredProfessors.map(this.renderProfessor.bind(this))}
+                            </Loader>
                         </tbody>
                     </Table>
                 </Col>

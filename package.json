@@ -39,6 +39,7 @@
     "lodash": "^4.13.1",
     "moment": "^2.14.1",
     "react-bootstrap": "^0.29.5",
+    "react-loader": "^2.4.0",
     "react-modal": "^1.4.0",
     "react-router": "^2.5.2",
     "validate.js": "^0.10.0",

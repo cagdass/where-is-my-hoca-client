@@ -1,18 +1,23 @@
 import React, {PropTypes} from "react";
 import {Button, FormControl, FormGroup, ControlLabel, HelpBlock, Col, Glyphicon, Modal, Panel, Row, Table} from "react-bootstrap";
 import {Link} from "react-router";
-import scheduleService from "../schedule_service"
+import scheduleService from "../schedule_service";
+import Loader from "react-loader";
 
 class BuildingList extends React.Component {
     constructor(props, context, ...args) {
         super(props, context, ...args);
-        this.state = {"sort": "Sort Ascending", "sorted": false, "isDirty": false};
+        this.state = {"loaded": false,
+            "sort": "Sort Ascending",
+            "sorted": false,
+            "isDirty": false
+        };
     }
 
     componentWillMount() {
         let {searchParams, orderParams, pager} = this.state;
         this.searchBuildings(searchParams, orderParams, pager).then(() => {
-            this.setState({isLoaded: true});
+            this.setState({loaded: true});
             this.sortBuildings();
         });
     }
