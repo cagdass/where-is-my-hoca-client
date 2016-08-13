@@ -110,6 +110,7 @@ class ClassroomList extends React.Component {
                             <FormControl
                                 type="text"
                                 value={this.state.searchInput}
+                                onSubmit={event => event.preventDefault()}
                                 placeholder="e.g. EB-201 (Yes. This is the year 2016. And I will have two classes at EB-201 next semester."
                                 onChange={this.handleChange.bind(this)}/>
                         </Col>

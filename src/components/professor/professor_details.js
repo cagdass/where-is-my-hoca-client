@@ -40,6 +40,7 @@ class ProfessorDetails extends React.Component {
         let {classes = [], loaded} = this.state;
         let professor = this.props.params.id.replace(/_/g, " ");
         let renderClassroom = true;
+        let isClassroom = false;
 
         return (<div>
             <h2>Search results for {professor}:</h2>
@@ -58,7 +59,7 @@ class ProfessorDetails extends React.Component {
             <br/>
             <br/>
             <Loader loaded={loaded}>
-                <Schedule classes={classes} renderClassroom={renderClassroom} xs={2} md={2} />
+                <Schedule classes={classes} classroom="" renderClassroom={renderClassroom} isClassroom={isClassroom} xs={2} md={2} />
             </Loader>
         </div>);
     }

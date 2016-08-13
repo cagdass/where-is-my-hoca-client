@@ -52,7 +52,7 @@ class SchedulerFormatter{
         return {day, start, end, location, status, dayNum, classSpan};
     }
 
-    formatSchedule(classes) {
+    formatSchedule(classes, isClassroom, location) {
         var schedule = [
             [{}, {}, {}, {}, {}, {}, {}, {}],
             [{}, {}, {}, {}, {}, {}, {}, {}],
@@ -63,7 +63,7 @@ class SchedulerFormatter{
 
         for (var i = 0; i < classes.length; i++) {
             var lectures = classes[i].lectures;
-            for (var j = 0;lectures != undefined && j < lectures.length; j++){
+            for (var j = 0; lectures != undefined && j < lectures.length; j++){
                 var tokenizedLecture = this.tokenizeLecture(lectures[j]);
                 var obj = {
                     "departmentCode": classes[i].departmentCode,
@@ -77,6 +77,9 @@ class SchedulerFormatter{
                 var day = tokenizedLecture.dayNum;
                 var hours = tokenizedLecture.classSpan;
 
+                console.log(JSON.stringify(obj));
+                console.log(day + " " + hours);
+
                 for(var k = 0; k < hours.length; k++){
                     let existingClass = schedule[day][hours[k]];
 
@@ -87,15 +90,28 @@ class SchedulerFormatter{
                         }
                         // Otherwise, replace it with a regular class.
                         else{
-                            schedule[day][hours[k]] = obj;
+                            if(isClassroom && obj.location == location){
+                                schedule[day][hours[k]] = obj;
+                            }
+                            else if(!isClassroom){
+                                schedule[day][hours[k]] = obj;
+                            }
                         }
                     }
                     else{
-                        schedule[day][hours[k]] = obj;
+                        if(isClassroom && obj.location == location){
+                            schedule[day][hours[k]] = obj;
+                        }
+                        else if(!isClassroom){
+                            schedule[day][hours[k]] = obj;
+                        }
                     }
                 }
             }
         }
+
+        console.log("Schedule");
+        console.log(JSON.stringify(schedule));
 
         return schedule;
     }

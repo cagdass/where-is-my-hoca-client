@@ -49,8 +49,8 @@ class Schedule extends React.Component {
 
     // TODO: Prettify this function, too much redundant stuff.
     renderSchedule() {
-        let {classes = [], renderClassroom, xs, md} = this.props;
-        let schedule = scheduleFormatter.formatSchedule(classes);
+        let {classes = [], classroom, renderClassroom, isClassroom, xs, md} = this.props;
+        let schedule = scheduleFormatter.formatSchedule(classes, isClassroom, classroom);
 
         // 4.40TL FTW.
         let marmara = "Marmara Tiem :(";

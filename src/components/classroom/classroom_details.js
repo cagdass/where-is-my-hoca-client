@@ -57,6 +57,7 @@ class ClassroomDetails extends React.Component {
         let {classes = [], loaded} = this.state;
         let classroom = this.props.params.id;
         let renderClassroom = false;
+        let isClassroom = true;
 
         return (<div>
             <h2>{`Classes at ${classroom}:`}</h2>
@@ -75,7 +76,7 @@ class ClassroomDetails extends React.Component {
             <br/>
             <br/>
             <Loader loaded={loaded}>
-                <Schedule classes={classes} classroom={classroom} renderClassroom={renderClassroom} xs={2} md={2} />
+                <Schedule classes={classes} classroom={classroom} renderClassroom={renderClassroom} isClassroom={isClassroom} xs={2} md={2} />
             </Loader>
         </div>);
     }

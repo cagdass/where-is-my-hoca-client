@@ -16,7 +16,7 @@ class ProfessorsList extends React.Component {
             "isDirty": false,
             "activePage": 1,
             "activeFilteredProfessors": [],
-            "numItems": 12,
+            "numItems": 16,
             "numProfessors": 1
         };
     }
@@ -158,6 +158,7 @@ class ProfessorsList extends React.Component {
                                 type="text"
                                 value={this.state.searchInput}
                                 placeholder="e.g. Abdullah Atalar"
+                                onSubmit={event => event.preventDefault()}
                                 onChange={this.handleChange.bind(this)}
                             />
                         </Col>
