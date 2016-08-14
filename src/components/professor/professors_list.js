@@ -30,6 +30,23 @@ class ProfessorsList extends React.Component {
         });
     }
 
+    latinizeString(str){
+        str = str.replace("ö", "o");
+        str = str.replace("Ö", "O");
+        str = str.replace("Ç", "C");
+        str = str.replace("ç", "c");
+        str = str.replace("İ", "I");
+        str = str.replace("ı", "i");
+        str = str.replace("ü", "u");
+        str = str.replace("U", "U");
+        str = str.replace("Ş", "S");
+        str = str.replace("ş", "s");
+        str = str.replace("ğ", "g");
+        str = str.replace("Ğ", "G");
+
+        return str;
+    }
+
     // Credits go to react-auto-suggest
     escapeRegexCharacters(str) {
         return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -41,7 +58,7 @@ class ProfessorsList extends React.Component {
         const escapedValue = this.escapeRegexCharacters(searchInput.trim());
         const regex = new RegExp(escapedValue, 'i');
 
-        let filteredProfessors = professors.filter(professor => regex.test(professor));
+        let filteredProfessors = professors.filter(professor => (regex.test(professor) || regex.test(this.latinizeString(professor))));
 
         let numItemsNew = Math.floor(filteredProfessors.length / itemsPerPage) + 1;
 
