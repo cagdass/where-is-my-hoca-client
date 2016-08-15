@@ -1,6 +1,6 @@
 {
-  "name": "react-tutorial",
-  "version": "1.0.0",
+  "name": "where-is-my-hoca",
+  "version": "0.0.12",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "http://gitlab.20satir.com/mehmet/react-tutorial.git"
+    "url": "https://github.com/cagdass/where-is-my-hoca-react.git"
   },
   "author": "",
   "license": "ISC",
