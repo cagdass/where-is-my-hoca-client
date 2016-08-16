@@ -43,7 +43,7 @@ class ProfessorDetails extends React.Component {
         let isClassroom = false;
 
         return (<div>
-            <h2>Search results for {professor}:</h2>
+            <h2>{professor === "Can Alkan" ? "The teachings of magnificent" : "Classes from "} {professor}:</h2>
             <Table striped condensed hover>
                 <thead>
                     <tr>

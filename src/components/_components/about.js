@@ -17,6 +17,8 @@ class About extends React.Component {
                 <p>Learning <i>some</i> React made it much easier. Many thanks go to <a href="http://20satir.com">20satir</a> where I got to learn what I learned. And also to Facebook, who created React in the first place.</p>
                 <br/>
                 <p>This application, and the accompanying server application are open-source at:</p>
+                <p>Take a look at the open issues, new ideas are appreciated: </p>
+                <p>And no. Office hours are not likely to come unless arrangements are to be made so that I can fetch the entire data like I did for classes.</p>
                 <p><a href="https://github.com/cagdass/where-is-my-hoca-react">https://github.com/cagdass/where-is-my-hoca-react</a></p>
                 <p><a href="https://github.com/cagdass/where-is-my-hoca-server">https://github.com/cagdass/where-is-my-hoca-server</a></p>
                 <br/>

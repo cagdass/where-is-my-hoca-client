@@ -3,6 +3,7 @@ import {Button, FormControl, FormGroup, ControlLabel, HelpBlock, Col, Grid, Glyp
 import {Link} from "react-router";
 import scheduleService from "../schedule_service";
 import Loader from "react-loader";
+import UnderConstrution from "../_components/under_construction";
 
 /*
  Query empty classrooms.
@@ -12,7 +13,9 @@ class EmptyClassrooms extends React.Component {
     constructor(props, context, ...args) {
         super(props, context, ...args);
 
-        this.state = {};
+        this.state = {
+            clicked: []
+        };
     }
 
     // componentWillMount() {
@@ -41,29 +44,45 @@ class EmptyClassrooms extends React.Component {
     }
 
     handleClick(index){
-        console.log(index);
+        let {clicked} = this.state;
+
+        if(clicked.indexOf(index) != -1) {
+            clicked.splice(clicked.indexOf(index), 1);
+        }
+        else {
+            clicked.push(index);
+        }
+
+        this.setState({clicked})
     }
 
-    renderRow(index) {
-        return <Row className="show-grid">
-            {[0, 1, 2, 3, 4].map(i => i + index * 5).map(this.renderButton.bind(this))}
+    renderRow(xs, md, index) {
+        return <Row className="rowasd show-grid">
+            {[0, 1, 2, 3, 4].map(i => i + index * 5).map(this.renderButton.bind(this, xs, md))}
         </Row>
     }
 
-    renderButton(index) {
-        return <Button key={index} onClick={this.handleClick.bind(this, index)}>
+    renderButton(xs, md, index) {
+        let {clicked} = this.state;
+        let style = "bg-colWhite";
+
+        if(clicked.indexOf(index) != -1) {
+            style = "bg-colSel"
+        }
+
+        return <Col xs={xs} md={md} className={`bg-col ${style}`} key={index} onClick={this.handleClick.bind(this, index)}>
             {this.getHour(Math.floor(index / 5))}
-        </Button>
+        </Col>
     }
 
 
     render() {
-
         return <div>
+            <UnderConstrution />
             <Grid>
-                {[0, 1, 2, 3].map(this.renderRow.bind(this))}
+                {[0, 1, 2, 3].map(this.renderRow.bind(this, 2, 2))}
                 <hr />
-                {[4, 5, 6, 7].map(this.renderRow.bind(this))}
+                {[4, 5, 6, 7].map(this.renderRow.bind(this, 2, 2))}
             </Grid>
         </div>;
     }
