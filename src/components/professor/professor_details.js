@@ -58,9 +58,9 @@ class ProfessorDetails extends React.Component {
             </Table>
             <br/>
             <br/>
-            <Loader loaded={loaded}>
+            {professor !== "Staff" && <Loader loaded={loaded}>
                 <Schedule classes={classes} classroom="" renderClassroom={renderClassroom} isClassroom={isClassroom} xs={2} md={2} />
-            </Loader>
+            </Loader>}
         </div>);
     }
 }
