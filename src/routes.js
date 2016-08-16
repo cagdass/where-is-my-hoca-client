@@ -9,6 +9,7 @@ import BuildingList from "./components/building/building_list";
 import BuildingDetails from "./components/building/building_details";
 import ClassroomList from "./components/classroom/classroom_list";
 import ClassroomDetails from "./components/classroom/classroom_details";
+import EmptyClassrooms from "./components/classroom/empty_classrooms";
 import About from "./components/_components/about";
 import NoMatch from "components/_components/no_match";
 
@@ -23,6 +24,7 @@ const routes = (
         <Route path="building/:id" component={BuildingDetails}/>
         <Route path="classrooms" component={ClassroomList}/>
         <Route path="classroom/:id" component={ClassroomDetails}/>
+        <Route path="empty_classrooms" component={EmptyClassrooms}/>
         <Route path="about" component={About}/>
         <Route path="*" component={NoMatch}/>
     </Route>

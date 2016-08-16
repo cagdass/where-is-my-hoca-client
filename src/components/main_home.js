@@ -43,6 +43,11 @@ class MainHome extends React.Component {
                             <Link to="/classrooms">Classrooms</Link>
                         </Navbar.Brand>
                     </Nav>
+                    <Nav>
+                        <Navbar.Brand>
+                            <Link to="/empty_classrooms">Empty Classrooms</Link>
+                        </Navbar.Brand>
+                    </Nav>
                     <Nav pullRight>
                         <Navbar.Brand>
                             <Link to="/about"><b>About</b></Link>
