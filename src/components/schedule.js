@@ -81,7 +81,7 @@ class Schedule extends React.Component {
                         {this.renderScheduleRow(schedule, 3, renderClassroom, xs, md)}
                     </Row>
                     <br/>
-                    <Row className="rowasd show-grid">
+                    <Row className="rowasd marmaraTiem show-grid">
                         <Col xs={xs} md={md}><i>{marmara}</i></Col>
                         <Col xs={xs} md={md}><i>{marmara}</i></Col>
                         <Col xs={xs} md={md}><i>{marmara}</i></Col>

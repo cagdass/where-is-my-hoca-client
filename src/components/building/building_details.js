@@ -13,7 +13,6 @@ class BuildingDetails extends React.Component {
     }
 
     componentWillMount() {
-        console.log(this.props.params);
         departmentService.buildingDetails(this.props.params.id).then(classrooms => {
             this.setState({"classrooms": classrooms, "loaded": true});
             this.setDistinctClassrooms();
@@ -51,7 +50,7 @@ class BuildingDetails extends React.Component {
 
     render() {
         let {classrooms = [], distinctClassrooms = [], loaded} = this.state;
-        console.log(classrooms.lectures);
+
         return (<Table striped condensed hover>
             <thead>
                 <tr>

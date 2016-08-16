@@ -77,14 +77,11 @@ class SchedulerFormatter{
                 var day = tokenizedLecture.dayNum;
                 var hours = tokenizedLecture.classSpan;
 
-                console.log(JSON.stringify(obj));
-                console.log(day + " " + hours);
-
                 for(var k = 0; k < hours.length; k++){
                     let existingClass = schedule[day][hours[k]];
 
                     // Meaning that (simply) the current hour is not empty.
-                    if(Object.getOwnPropertyNames(existingClass) > 0){
+                    if(existingClass != undefined && Object.getOwnPropertyNames(existingClass) > 0){
                         if(existingClass.status != "[L]"){
                             // If the current hour has a regular class, leave it be.
                         }
@@ -109,9 +106,6 @@ class SchedulerFormatter{
                 }
             }
         }
-
-        console.log("Schedule");
-        console.log(JSON.stringify(schedule));
 
         return schedule;
     }

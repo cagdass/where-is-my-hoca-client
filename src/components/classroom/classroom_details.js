@@ -26,7 +26,6 @@ class ClassroomDetails extends React.Component {
     }
 
     componentWillMount() {
-        console.log(this.props.params);
         // Retrieve the classes at this classroom from the server.
         departmentService.classroomDetails(this.props.params.id)
         .then(classes => {

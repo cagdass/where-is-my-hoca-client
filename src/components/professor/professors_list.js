@@ -62,9 +62,6 @@ class ProfessorsList extends React.Component {
 
         let numItemsNew = Math.floor(filteredProfessors.length / itemsPerPage) + 1;
 
-        console.log(`Filtered professors length is ${filteredProfessors.length}`);
-        console.log(`New numItems is ${numItemsNew}`);
-
         this.setState({
             "filteredProfessors": filteredProfessors,
             "numItems": numItemsNew,
