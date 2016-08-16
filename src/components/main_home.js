@@ -25,12 +25,12 @@ class MainHome extends React.Component {
                 <Navbar.Collapse>
                     <Nav>
                         <Navbar.Brand>
-                            <Link to="/departments">Departments</Link>
+                            <Link to="/hocas">Hocas</Link>
                         </Navbar.Brand>
                     </Nav>
                     <Nav>
                         <Navbar.Brand>
-                            <Link to="/hocas">Hocas</Link>
+                            <Link to="/departments">Departments</Link>
                         </Navbar.Brand>
                     </Nav>
                     <Nav>
@@ -45,7 +45,7 @@ class MainHome extends React.Component {
                     </Nav>
                     <Nav>
                         <Navbar.Brand>
-                            <Link to="/empty_classrooms">Empty Classrooms</Link>
+                            <Link to="/empty_classrooms">EmptyClassrooms</Link>
                         </Navbar.Brand>
                     </Nav>
                     <Nav pullRight>
