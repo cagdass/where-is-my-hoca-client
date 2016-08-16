@@ -177,6 +177,14 @@ body {
     /*text-align: center;*/
 }
 
+.sg-col {
+    border-radius: 5px;
+    margin: 1px;
+    padding: 5px;
+    padding-left: 5px;
+    text-align: center;
+}
+
 .bg-col1 {
     background: orange;
 }
@@ -220,6 +228,14 @@ body {
 }
 .bg-col14 {
     background: springgreen;
+}
+
+.sg-col-selected {
+    background: darkgrey;
+}
+
+.sg-row {
+    margin: 2px;
 }
 
 .rowasd {
