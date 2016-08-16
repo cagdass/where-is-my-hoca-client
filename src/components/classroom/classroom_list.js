@@ -31,7 +31,6 @@ class ClassroomList extends React.Component {
         let {searchParams, orderParams, pager} = this.state;
         this.searchClassrooms(searchParams, orderParams, pager).then(() => {
             this.setState({loaded: true});
-            this.sortClassrooms();
         });
     }
 
