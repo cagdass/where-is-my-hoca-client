@@ -16,7 +16,7 @@ class ProfessorsList extends React.Component {
             "isDirty": false,
             "activePage": 1,
             "activeFilteredProfessors": [],
-            "numItems": 16,
+            "numItems": 12,
             "numProfessors": 1
         };
     }
