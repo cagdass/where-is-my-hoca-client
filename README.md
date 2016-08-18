@@ -2,6 +2,8 @@
 
 Front-end application in React for **Where is my Hoca?**
 
+Since there is not anywhere else the data is explicitly put, I wrote my own application to:
+
 * Find the weekly schedules of Bilkent professors.
 * Find the weekly schedules of classrooms. 
 * **Not yet implemented:** Query the empty classrooms at a given time.
