@@ -1,5 +1,5 @@
 import React, {PropTypes} from "react";
-import {Button, FormControl, FormGroup, ControlLabel, HelpBlock, Col, Glyphicon, Modal, Panel, Row, Table} from "react-bootstrap";
+import {Button, FormControl, FormGroup, ControlLabel, Col, Row, Table} from "react-bootstrap";
 import {Link} from "react-router";
 import scheduleService from "../schedule_service";
 import Loader from "react-loader";
@@ -46,7 +46,7 @@ class ClassroomList extends React.Component {
         const escapedValue = this.escapeRegexCharacters(searchInput.trim());
         const regex = new RegExp(escapedValue, 'i');
 
-        let filteredClassrooms = classrooms.filter(classroom => regex.test(classroom));
+        let filteredClassrooms = classrooms.filter(classroom => regex.test(classroom.replace('-', '')) || regex.test(classroom));
         this.setState({filteredClassrooms});
     }
 

@@ -1,5 +1,5 @@
 import React from "react";
-import {MenuItem, Navbar, Nav, NavItem, NavDropdown} from "react-bootstrap";
+import {Navbar, Nav} from "react-bootstrap";
 import {Link} from "react-router";
 import IndexFooter from "./_components/index_footer";
 
@@ -41,11 +41,6 @@ class MainHome extends React.Component {
                     <Nav>
                         <Navbar.Brand>
                             <Link to="/classrooms">Classrooms</Link>
-                        </Navbar.Brand>
-                    </Nav>
-                    <Nav>
-                        <Navbar.Brand>
-                            <Link to="/empty_classrooms">EmptyClassrooms</Link>
                         </Navbar.Brand>
                     </Nav>
                     <Nav pullRight>

@@ -5,7 +5,6 @@ class IndexFooter extends React.Component {
         super(props, context, ...args);
     }
 
-
     render() {
         return <footer className="footer">
             <div className="container">

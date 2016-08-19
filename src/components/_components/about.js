@@ -1,6 +1,5 @@
 import React, {PropTypes} from "react";
-import {Button, Col, Glyphicon, Panel, Row, Table, Grid, Clearfix} from "react-bootstrap";
-import {Link} from "react-router";
+import {Row} from "react-bootstrap";
 
 class About extends React.Component {
     render() {

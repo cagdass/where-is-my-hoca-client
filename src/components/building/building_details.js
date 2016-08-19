@@ -1,5 +1,5 @@
 import React, {PropTypes} from "react";
-import {Button, Col, Glyphicon, Panel, Row, Table} from "react-bootstrap";
+import {Col, Table} from "react-bootstrap";
 import {Link} from "react-router";
 import departmentService from "../schedule_service.js";
 import Loader from "react-loader"
