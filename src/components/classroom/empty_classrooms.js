@@ -166,6 +166,7 @@ class EmptyClassrooms extends React.Component {
         let {buildings, selectedBuilding, loaded, clicked = [], foundClassrooms = [], classroomsLoaded} = this.state;
 
         return <div>
+            <UnderConstrution/>
             <Loader loaded={loaded}>
                 <Row>
                     <Col xs={4} md={4}>
@@ -183,6 +184,8 @@ class EmptyClassrooms extends React.Component {
                         </FormGroup>
                     </Col>
                 </Row>
+                <hr/>
+                <p>Select time slots by clicking/tapping on them.</p>
                 <Grid>
                     <Col>
                         <Row className="show-grid">
