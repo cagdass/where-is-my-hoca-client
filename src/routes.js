@@ -24,6 +24,7 @@ const routes = (
         <Route path="building/:id" component={BuildingDetails}/>
         <Route path="classrooms" component={ClassroomList}/>
         <Route path="classroom/:id" component={ClassroomDetails}/>
+        <Route path="empty_classrooms" component={EmptyClassrooms}/>
         <Route path="about" component={About}/>
         <Route path="*" component={NoMatch}/>
     </Route>
