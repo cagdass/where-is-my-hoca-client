@@ -1,7 +1,7 @@
 import React, {PropTypes} from "react";
 import {Button, FormControl, FormGroup, ControlLabel, Col, Row, Table} from "react-bootstrap";
 import {Link} from "react-router";
-import scheduleService from "../schedule_service";
+import scheduleService from "../department_service";
 import Loader from "react-loader";
 
 /*

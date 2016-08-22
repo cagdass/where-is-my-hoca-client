@@ -1,7 +1,7 @@
 import React, {PropTypes} from "react";
 import {Col, Table} from "react-bootstrap";
 import {Link} from "react-router";
-import departmentService from "../schedule_service.js";
+import departmentService from "../department_service.js";
 import Loader from "react-loader"
 
 class BuildingDetails extends React.Component {

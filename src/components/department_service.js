@@ -70,7 +70,11 @@ class DepartmentService {
         })
     }
 
-
+    findEmptyClassrooms(classroom, hours) {
+        let body = {'classroom': classroom, 'hours': hours};
+        return baseAPI.post("empty_classrooms", body)
+        .catch(error => console.error(error))
+    }
 }
 
 export default new DepartmentService();

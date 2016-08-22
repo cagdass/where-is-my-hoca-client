@@ -1,7 +1,7 @@
 import React, {PropTypes} from "react";
 import {Button, FormControl, FormGroup, ControlLabel, HelpBlock, Col, Grid, Glyphicon, Modal, Panel, Row, Table} from "react-bootstrap";
 import {Link} from "react-router";
-import scheduleService from "../schedule_service";
+import scheduleService from "../department_service";
 import Loader from "react-loader";
 import UnderConstrution from "../_components/under_construction";
 
@@ -16,7 +16,9 @@ class EmptyClassrooms extends React.Component {
         this.state = {
             clicked: [],
             buildings: [],
-            loaded: false
+            loaded: false,
+            classroomsLoaded: true,
+            foundClassrooms: []
         };
     }
 
@@ -38,16 +40,23 @@ class EmptyClassrooms extends React.Component {
 
     sortBuildings(){
         let {buildings = []} = this.state;
+
         this.setState({
             "buildings": buildings.sort(),
             "loaded": true
         });
     }
 
-    // // Credits go to react-auto-suggest, which is no longer a dependency in this project :(.
-    // escapeRegexCharacters(str) {
-    //     return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    // }
+    findEmptyClassrooms() {
+        let {clicked = [], selectedBuilding = ''} = this.state;
+
+        return scheduleService.findEmptyClassrooms(selectedBuilding, clicked.map(String))
+        .then(results => {
+            this.setState({'foundClassrooms': results, 'classroomsLoaded': true});
+            console.log(results);
+        })
+        .catch(searchError => console.error(error));
+    }
 
     getHour(num) {
         if(num < 1) {
@@ -75,8 +84,7 @@ class EmptyClassrooms extends React.Component {
         }
 
         console.log(clicked);
-        this.setState({clicked})
-
+        this.setState({'clicked': clicked});
     }
 
     renderRow(xs, md, index) {
@@ -100,7 +108,7 @@ class EmptyClassrooms extends React.Component {
 
     handleBuildingChange(event) {
         let selectedBuilding = event.target.value;
-        this.setState({selectedBuilding});
+        this.setState({'selectedBuilding': selectedBuilding});
     }
 
     renderBuilding(building) {
@@ -140,12 +148,24 @@ class EmptyClassrooms extends React.Component {
         </tr>
     }
 
+    renderEmptyClassroom(classroom) {
+        if(classroom){
+            return <tr>
+                <td><Link to={`/classroom/${classroom.location}`}>{classroom.location}</Link></td>
+            </tr>
+        }
+    }
+
+    submitQuery() {
+        this.setState({'classroomsLoaded': false});
+        this.findEmptyClassrooms();
+    }
+
     render() {
         let [xs, md] = [2, 2];
-        let {buildings, selectedBuilding, loaded, clicked = []} = this.state;
+        let {buildings, selectedBuilding, loaded, clicked = [], foundClassrooms = [], classroomsLoaded} = this.state;
 
         return <div>
-            <UnderConstrution />
             <Loader loaded={loaded}>
                 <Row>
                     <Col xs={4} md={4}>
@@ -180,7 +200,13 @@ class EmptyClassrooms extends React.Component {
                 </Grid>
             </Loader>
             <hr />
-            <p><b>Building:</b> {selectedBuilding || <b className="alert-danger">You did not select a building</b>}</p>
+            <Button onClick={this.submitQuery.bind(this)}>Find empty classrooms</Button>
+            <hr />
+            <Loader loaded={classroomsLoaded}>
+                {foundClassrooms.map(this.renderEmptyClassroom.bind(this))}
+            </Loader>
+            <hr />
+            <p><b>Results from:</b> {selectedBuilding ? selectedBuilding + " Building" : "All buildings"} </p>
             <Table striped hover>
                 <thead>
                     <th>Day</th>

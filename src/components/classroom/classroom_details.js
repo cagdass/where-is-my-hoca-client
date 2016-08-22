@@ -1,7 +1,7 @@
 import React, {PropTypes} from "react";
 import {Table} from "react-bootstrap";
 import {Link} from "react-router";
-import departmentService from "../schedule_service.js";
+import departmentService from "../department_service.js";
 import Schedule from "../schedule";
 import Loader from "react-loader";
 

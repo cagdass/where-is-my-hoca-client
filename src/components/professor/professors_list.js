@@ -1,7 +1,7 @@
 import React, {PropTypes} from "react";
 import {Button, FormControl, FormGroup, ControlLabel, Pagination, HelpBlock, Col, Glyphicon, Modal, Panel, Row, Table} from "react-bootstrap";
 import {Link} from "react-router";
-import scheduleService from "../schedule_service"
+import scheduleService from "../department_service"
 import Loader from "react-loader";
 
 class ProfessorsList extends React.Component {

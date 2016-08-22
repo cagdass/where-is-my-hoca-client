@@ -9,7 +9,7 @@ class IndexFooter extends React.Component {
         return <footer className="footer">
             <div className="container">
                 <p>
-                    <small>No &copy;opyrights 2016. Please do not use the information to assault the professors. Or stalk people going in the classrooms. </small>
+                    <small>No &copy;opyrights 2016. Please do not use the information to assault the professors.</small>
                 </p>
             </div>
         </footer>
