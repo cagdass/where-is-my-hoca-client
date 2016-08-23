@@ -6,7 +6,7 @@ Since there is not anywhere else the data is explicitly put, I wrote my own appl
 
 * Find the weekly schedules of Bilkent professors.
 * Find the weekly schedules of classrooms. 
-* **Not yet implemented:** Query the empty classrooms at a given time.
+* **Implemented, *design not complete*:** Query the empty classrooms at a given time.
 
 You can find the application deployed at [http://cgds.me/whereismyhoca](http://cgds.me/whereismyhoca)
 
