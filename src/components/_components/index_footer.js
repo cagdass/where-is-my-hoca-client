@@ -1,4 +1,6 @@
 import React from "react";
+import { Navbar, Nav } from "react-bootstrap";
+import { Link } from "react-router";
 
 class IndexFooter extends React.Component {
     constructor(props, context, ...args) {
@@ -7,7 +9,7 @@ class IndexFooter extends React.Component {
 
     render() {
         return <footer className="footer">
-            <div className="container">
+            <div className="container" style={{display: "flex", flexDirection: "row"}}>
                 <p>
                     <small>No &copy;opyrights 2016. Please do not use the information to assault the professors.</small>
                 </p>

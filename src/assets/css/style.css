@@ -170,10 +170,15 @@ body {
     margin-left: 2em;
 }
 
+
+
 .bg-col {
     border-radius: 5px;
     padding: 10px;
     padding-left: 20px;
+    min-height: 60px;
+    margin: 2px;
+    text-wrap: none;
     /*text-align: center;*/
 }
 

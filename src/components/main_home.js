@@ -18,37 +18,37 @@ class MainHome extends React.Component {
             <Navbar>
                 <Navbar.Header>
                     <Navbar.Brand>
-                        <Link to="/"><b>Where is my Hoca? v0.0.14</b></Link>
+                        <Link to="/"><b>Where is my Hoca?</b></Link>
                     </Navbar.Brand>
                     <Navbar.Toggle />
                 </Navbar.Header>
                 <Navbar.Collapse>
-                    <Nav>
+                    <Nav stacked>
                         <Navbar.Brand>
                             <Link to="/hocas">Hocas</Link>
                         </Navbar.Brand>
                     </Nav>
-                    <Nav>
+                    <Nav stacked>
                         <Navbar.Brand>
                             <Link to="/departments">Departments</Link>
                         </Navbar.Brand>
                     </Nav>
-                    <Nav>
+                    <Nav stacked>
                         <Navbar.Brand>
                             <Link to="/buildings">Buildings</Link>
                         </Navbar.Brand>
                     </Nav>
-                    <Nav>
+                    <Nav stacked>
                         <Navbar.Brand>
                             <Link to="/classrooms">Classrooms</Link>
                         </Navbar.Brand>
                     </Nav>
-                    <Nav>
+                    <Nav stacked>
                         <Navbar.Brand>
                             <Link to="/empty_classrooms">EmptyClassrooms</Link>
                         </Navbar.Brand>
                     </Nav>
-                    <Nav pullRight>
+                    <Nav stacked pullRight>
                         <Navbar.Brand>
                             <Link to="/about"><b>About</b></Link>
                         </Navbar.Brand>

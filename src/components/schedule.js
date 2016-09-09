@@ -55,7 +55,7 @@ class Schedule extends React.Component {
         // 4.40TL FTW.
         let marmara = "Marmara Tiem :(";
 
-        return (<div>
+        return (<div className="justify-content">
                 <Grid>
                     <Row className="rowasd show-grid">
                         <Col xs={xs} md={md} className="dayCol">Monday</Col>

@@ -150,9 +150,13 @@ class EmptyClassrooms extends React.Component {
 
     renderEmptyClassroom(classroom) {
         if(classroom){
-            return <tr>
-                <td><Link to={`/classroom/${classroom.location}`}>{classroom.location}</Link></td>
-            </tr>
+            return (
+                <span>
+                    <Col className="searchCol" xs={6}>
+                        <Link to={`/classroom/${classroom.location}`}>{classroom.location}</Link>
+                    </Col>
+                </span>
+            );
         }
     }
 
@@ -166,19 +170,24 @@ class EmptyClassrooms extends React.Component {
         let {buildings, selectedBuilding, loaded, clicked = [], foundClassrooms = [], classroomsLoaded} = this.state;
 
         return <div>
-            <UnderConstrution/>
             <Loader loaded={loaded}>
                 <Row>
                     <Col xs={4} md={4}>
                         <FormGroup controlId="formControlsSelect">
                             <Row>
                                 <Col xs={5}>
-                                    <ControlLabel>Select a Building</ControlLabel>
+                                    <ControlLabel>Filter by building:</ControlLabel>
                                 </Col>
                                 <Col xs={5}>
                                     <FormControl onChange={this.handleBuildingChange.bind(this)} componentClass="select" placeholder="Select a building.">
                                         {buildings.map(this.renderBuilding.bind(this))}
                                     </FormControl>
+                                </Col>
+                            </Row>
+                            <hr />
+                            <Row>
+                                <Col xs={5}>
+                                    <Button onClick={this.submitQuery.bind(this)}>Find empty classrooms</Button>
                                 </Col>
                             </Row>
                         </FormGroup>
@@ -203,11 +212,13 @@ class EmptyClassrooms extends React.Component {
                 </Grid>
             </Loader>
             <hr />
-            <Button onClick={this.submitQuery.bind(this)}>Find empty classrooms</Button>
+
             <hr />
             <Loader loaded={classroomsLoaded}>
                 {foundClassrooms.map(this.renderEmptyClassroom.bind(this))}
             </Loader>
+            <br />
+            <br />
             <hr />
             <p><b>Results from:</b> {selectedBuilding ? selectedBuilding + " Building" : "All buildings"} </p>
             <Table striped hover>
