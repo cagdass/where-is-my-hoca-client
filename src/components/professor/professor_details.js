@@ -1,8 +1,9 @@
 import React, {PropTypes} from "react";
 import {Table} from "react-bootstrap";
+import Loader from "react-loader";
+
 import departmentService from "../department_service.js";
 import Schedule from "../schedule";
-import Loader from "react-loader";
 
 class ProfessorDetails extends React.Component {
     constructor(props, context, ...args) {

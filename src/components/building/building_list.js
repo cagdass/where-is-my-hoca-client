@@ -1,7 +1,11 @@
 import React, {PropTypes} from "react";
 import {Button, Col, Row, Table} from "react-bootstrap";
 import {Link} from "react-router";
+
 import scheduleService from "../department_service";
+import config from "../../config";
+
+const path = config.path;
 
 class BuildingList extends React.Component {
     constructor(props, context, ...args) {
@@ -47,13 +51,13 @@ class BuildingList extends React.Component {
     renderBuilding(building, index) {
         if(building.length > 0){
             return <span>
-                <Col xs={3} className="searchCol"><Link to={`/building/${building}`}>{building}</Link></Col>
+                <Col xs={3} className="searchCol"><Link to={`/${path}/building/${building}`}>{building}</Link></Col>
             </span>
         }
     }
 
     render() {
-        let {buildings = [], sort, sorted, isDirty} = this.state;
+        let { buildings = [], sort, sorted, isDirty } = this.state;
 
         return <div>
             <Row>

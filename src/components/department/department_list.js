@@ -1,8 +1,12 @@
 import React, {PropTypes} from "react";
 import {Col, Row, Table} from "react-bootstrap";
 import {Link} from "react-router";
-import scheduleService from "../department_service"
 import Loader from "react-loader";
+
+import scheduleService from "../department_service"
+import config from "../../config";
+
+const path = config.path;
 
 /*
     The list of all departments.
@@ -33,7 +37,7 @@ class DepartmentList extends React.Component {
     // Render department with a link to its own page.
     renderDepartment(department) {
         return <span>
-                <Col xs={3} sm={3} className="searchCol"><Link to={`/department/${department}`}>{department}</Link></Col>
+                <Col xs={3} sm={3} className="searchCol"><Link to={`/${path}/department/${department}`}>{department}</Link></Col>
             </span>
     }
 

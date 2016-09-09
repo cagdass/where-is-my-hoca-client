@@ -1,13 +1,16 @@
 import React, {PropTypes} from "react";
-import {Button, FormControl, FormGroup, ControlLabel, HelpBlock, Col, Grid, Glyphicon, Modal, Panel, Row, Table} from "react-bootstrap";
+import {Button, FormControl, FormGroup, ControlLabel, Col, Grid, Row, Table} from "react-bootstrap";
 import {Link} from "react-router";
-import scheduleService from "../department_service";
 import Loader from "react-loader";
-import UnderConstrution from "../_components/under_construction";
+
+import scheduleService from "../department_service";
+import config from "../../config";
 
 /*
  Query empty classrooms.
  */
+
+const path = config.path;
 
 class EmptyClassrooms extends React.Component {
     constructor(props, context, ...args) {
@@ -153,7 +156,7 @@ class EmptyClassrooms extends React.Component {
             return (
                 <span>
                     <Col className="searchCol" xs={6}>
-                        <Link to={`/classroom/${classroom.location}`}>{classroom.location}</Link>
+                        <Link to={`/${path}/classroom/${classroom.location}`}>{classroom.location}</Link>
                     </Col>
                 </span>
             );

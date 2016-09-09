@@ -1,7 +1,11 @@
 import React, {PropTypes} from "react";
 import {Col, Row, Grid} from "react-bootstrap";
 import {Link} from "react-router";
+
 import scheduleFormatter from "../utility/scheduler_formatter";
+import config from "../config";
+
+const path = config.path;
 
 class Schedule extends React.Component {
     constructor(props, context, ...args) {
@@ -21,7 +25,7 @@ class Schedule extends React.Component {
                     {schedule[index][hour].courseCode != undefined && scheduleFormatter.prettifyCourse(schedule[index][hour]) + " "}
 
                     {/* Put up a link to that classroom's page. */}
-                    {renderClassroom && <Link to={`/classroom/${schedule[index][hour].location}`}>{schedule[index][hour].location}</Link>}
+                    {renderClassroom && <Link to={`${path}/classroom/${schedule[index][hour].location}`}>{schedule[index][hour].location}</Link>}
 
                     {/* Don't display the class's status if it is undefined */}
                     {schedule[index][hour].status != undefined && " " + schedule[index][hour].status}
@@ -34,7 +38,7 @@ class Schedule extends React.Component {
         }
         else{
             return  <Col xs={xs} md={md} className={`bg-col ${schedule[index][hour].className}`}>{schedule[index][hour].courseCode != undefined && scheduleFormatter.prettifyCourse(schedule[index][hour]) + " "}
-                {renderClassroom && <Link to={`/classroom/${schedule[index][hour].location}`}>{schedule[index][hour].location}</Link>}
+                {renderClassroom && <Link to={`${path}/classroom/${schedule[index][hour].location}`}>{schedule[index][hour].location}</Link>}
                 {schedule[index][hour].status != undefined && " " + schedule[index][hour].status}
             </Col>
         }

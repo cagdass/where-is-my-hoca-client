@@ -1,11 +1,15 @@
 import React, {PropTypes} from "react";
-import {Button, FormControl, FormGroup, ControlLabel, Pagination, HelpBlock, Col, Glyphicon, Modal, Panel, Row, Table} from "react-bootstrap";
+import {Button, FormControl, FormGroup, ControlLabel, Pagination, Col, Row, Table} from "react-bootstrap";
 import {Link} from "react-router";
-import scheduleService from "../department_service"
 import Loader from "react-loader";
 
+import scheduleService from "../department_service"
+import config from "../../config";
+
+const path = config.path;
+
 class ProfessorsList extends React.Component {
-    constructor(props, context, ...args) {
+    constructor (props, context, ...args) {
         super(props, context, ...args);
         this.state = {
             professors : [],
@@ -21,8 +25,8 @@ class ProfessorsList extends React.Component {
         };
     }
 
-    componentWillMount() {
-        let {searchParams, orderParams, pager} = this.state;
+    componentWillMount () {
+        let { searchParams, orderParams, pager } = this.state;
         this.searchProfessors(searchParams, orderParams, pager)
         .then(() => this.setState({loaded: true}))
         .catch(error => {
@@ -30,7 +34,7 @@ class ProfessorsList extends React.Component {
         });
     }
 
-    latinizeString(str){
+    latinizeString (str) {
         str = str.replace("ö", "o");
         str = str.replace("Ö", "O");
         str = str.replace("Ç", "C");
@@ -48,11 +52,11 @@ class ProfessorsList extends React.Component {
     }
 
     // Credits go to react-auto-suggest
-    escapeRegexCharacters(str) {
+    escapeRegexCharacters (str) {
         return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     }
 
-    getSuggestions(searchInput) {
+    getSuggestions (searchInput) {
         let {professors = [], numProfessors, numItems, itemsPerPage} = this.state;
 
         const escapedValue = this.escapeRegexCharacters(searchInput.trim());
@@ -69,7 +73,7 @@ class ProfessorsList extends React.Component {
         });
     }
 
-    handleChange(e) {
+    handleChange (e) {
         let searchInput = e.target.value;
 
         // Update state.
@@ -82,12 +86,12 @@ class ProfessorsList extends React.Component {
         this.getSuggestions(searchInput);
     }
 
-    sortProfessors(){
+    sortProfessors (){
         var trsort = function(a,b){
             return a.localeCompare(b);
         };
 
-        let {filteredProfessors = [], sort, sorted, isDirty, itemsPerPage, numItems} = this.state;
+        let { filteredProfessors = [], sort, sorted, isDirty, itemsPerPage, numItems } = this.state;
 
         let numItemsNew = Math.floor(filteredProfessors.length / itemsPerPage) + 1;
 
@@ -154,73 +158,74 @@ class ProfessorsList extends React.Component {
 
     renderProfessor(professor) {
         return <span>
-            <Col className="searchCol" xs={6}><Link to={`/hoca/${professor.replace(/ /g, "_")}`}>{professor}</Link></Col>
+            <Col className="searchCol" xs={6}><Link to={`/${path}/hoca/${professor.replace(/ /g, "_")}`}>{professor}</Link></Col>
         </span>
     }
 
-    render() {
-        let {activeFilteredProfessors = [], sort, loaded, numItems} = this.state;
+    render () {
+        let { activeFilteredProfessors = [], sort, loaded, numItems } = this.state;
 
-        return ( <div>
-            <form>
-                <FormGroup
-                    controlId="formBasicText">
-                    <ControlLabel>Search for a hoca</ControlLabel>
-                    <Row>
-                        <Col xs={12} sm={12} md={7}>
-                            <FormControl
-                                type="text"
-                                value={this.state.searchInput}
-                                placeholder="e.g. Abdullah Atalar"
-                                onSubmit={event => event.preventDefault()}
-                                onChange={this.handleChange.bind(this)}
-                            />
-                        </Col>
-                        <Col xs={8} sm={8} md={3}>
-                            <div className="containerSortButton">
-                                <Button className="sortButtonProf" onClick={this.sortProfessors.bind(this)}>{sort}</Button>
-                            </div>
-                        </Col>
-                    </Row>
-                    <FormControl.Feedback />
-                </FormGroup>
-            </form>
-            <Row>
-                <Col xs={40} sm={30} md={10}>
-                    <Pagination
-                        bsSize="medium"
-                        items={numItems}
-                        activePage={this.state.activePage}
-                        onSelect={this.handleSelect.bind(this)} />
-                </Col>
-            </Row>
-            <br />
-            <Row>
-                <Col xs={40} sm={30} md={10}>
-                    <Table>
-                        <thead>
-                        <tr>
-                            <th>Hocas</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            <Loader loaded={loaded}>
-                                {activeFilteredProfessors.map(this.renderProfessor.bind(this))}
-                            </Loader>
-                        </tbody>
-                    </Table>
-                </Col>
-            </Row>
-            <Row>
-                <Col xs={40} sm={30} md={10}>
-                    <Pagination
-                        bsSize="medium"
-                        items={numItems}
-                        activePage={this.state.activePage}
-                        onSelect={this.handleSelect.bind(this)} />
-                </Col>
-            </Row>
-        </div>
+        return (
+            <div>
+                <form>
+                    <FormGroup
+                        controlId="formBasicText">
+                        <ControlLabel>Search for a hoca</ControlLabel>
+                        <Row>
+                            <Col xs={12} sm={12} md={7}>
+                                <FormControl
+                                    type="text"
+                                    value={this.state.searchInput}
+                                    placeholder="e.g. Abdullah Atalar"
+                                    onSubmit={event => event.preventDefault()}
+                                    onChange={this.handleChange.bind(this)}
+                                />
+                            </Col>
+                            <Col xs={8} sm={8} md={3}>
+                                <div className="containerSortButton">
+                                    <Button className="sortButtonProf" onClick={this.sortProfessors.bind(this)}>{sort}</Button>
+                                </div>
+                            </Col>
+                        </Row>
+                        <FormControl.Feedback />
+                    </FormGroup>
+                </form>
+                <Row>
+                    <Col xs={40} sm={30} md={10}>
+                        <Pagination
+                            bsSize="medium"
+                            items={numItems}
+                            activePage={this.state.activePage}
+                            onSelect={this.handleSelect.bind(this)} />
+                    </Col>
+                </Row>
+                <br />
+                <Row>
+                    <Col xs={40} sm={30} md={10}>
+                        <Table>
+                            <thead>
+                            <tr>
+                                <th>Hocas</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <Loader loaded={loaded}>
+                                    {activeFilteredProfessors.map(this.renderProfessor.bind(this))}
+                                </Loader>
+                            </tbody>
+                        </Table>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col xs={40} sm={30} md={10}>
+                        <Pagination
+                            bsSize="medium"
+                            items={numItems}
+                            activePage={this.state.activePage}
+                            onSelect={this.handleSelect.bind(this)} />
+                    </Col>
+                </Row>
+            </div>
         );
     }
 }

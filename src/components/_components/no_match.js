@@ -1,9 +1,11 @@
 import React from "react";
 
 class NoMatch extends React.Component {
-    render() {
+    render () {
         return (
-            <h1>URL Not Found</h1>
+            <h1>
+                <center>URL Not Found</center>
+            </h1>
         );
     }
 }

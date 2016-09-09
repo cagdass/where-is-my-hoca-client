@@ -1,6 +1,7 @@
-import React, {PropTypes} from "react";
-import {Table} from "react-bootstrap";
-import {Link} from "react-router";
+import React, { PropTypes } from "react";
+import { Table } from "react-bootstrap";
+import { Link } from "react-router";
+
 import departmentService from "../department_service.js";
 
 /*
@@ -8,7 +9,7 @@ import departmentService from "../department_service.js";
  */
 
 class DepartmentDetails extends React.Component {
-    constructor(props, context, ...args) {
+    constructor (props, context, ...args) {
         super(props, context, ...args);
         this.state = {
             loaded: false
@@ -23,7 +24,7 @@ class DepartmentDetails extends React.Component {
     }
 
     // Render links to the professor.
-    renderInstructor(instructor){
+    renderInstructor (instructor){
         return <div>
             <Link to={`/hoca/${instructor.replace(/ /g, "_")}`}>{instructor}</Link>
             <br/>
@@ -31,7 +32,7 @@ class DepartmentDetails extends React.Component {
     }
 
     // Display course information: Professor, course title, department, course code and section.
-    renderClass(clase, index) {
+    renderClass (clase, index) {
       return <tr key={index}>
             <td>{clase.instructor.map(this.renderInstructor.bind(this))}</td>
             <td>{clase.title}</td>
