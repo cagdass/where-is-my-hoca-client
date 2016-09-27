@@ -75,6 +75,12 @@ class DepartmentService {
         return baseAPI.post("empty_classrooms", body)
         .catch(error => console.error(error))
     }
+
+    findElectives(departments, hours) {
+        let body = {'departments': departments, 'hours': hours};
+        return baseAPI.post("electives", body)
+        .catch(error => console.error(error));
+    }
 }
 
 export default new DepartmentService();
