@@ -10,23 +10,25 @@ import BuildingDetails from "./components/building/building_details";
 import ClassroomList from "./components/classroom/classroom_list";
 import ClassroomDetails from "./components/classroom/classroom_details";
 import EmptyClassrooms from "./components/classroom/empty_classrooms";
+import Electives from "./components/electives/electives";
 import About from "./components/_components/about";
 import NoMatch from "components/_components/no_match";
 
 const routes = (
     <Route path="/" component={MainHome}>
-        <IndexRoute component={ProfessorsList}/>
-        <Route path="departments" component={DepartmentList}/>
-        <Route path="hocas" component={ProfessorsList}/>
-        <Route path="department/:id" component={DepartmentDetails}/>
-        <Route path="hoca/:id" component={ProfessorDetails}/>
-        <Route path="buildings" component={BuildingList}/>
-        <Route path="building/:id" component={BuildingDetails}/>
-        <Route path="classrooms" component={ClassroomList}/>
-        <Route path="classroom/:id" component={ClassroomDetails}/>
-        <Route path="empty_classrooms" component={EmptyClassrooms}/>
-        <Route path="about" component={About}/>
-        <Route path="*" component={NoMatch}/>
+        <IndexRoute component={ProfessorsList} />
+        <Route path="departments" component={DepartmentList} />
+        <Route path="hocas" component={ProfessorsList} />
+        <Route path="department/:id" component={DepartmentDetails} />
+        <Route path="hoca/:id" component={ProfessorDetails} />
+        <Route path="buildings" component={BuildingList} />
+        <Route path="building/:id" component={BuildingDetails} />
+        <Route path="classrooms" component={ClassroomList} />
+        <Route path="classroom/:id" component={ClassroomDetails} />
+        <Route path="empty_classrooms" component={EmptyClassrooms} />
+        <Route path="electives" component={Electives} />
+        <Route path="about" component={About} />
+        <Route path="*" component={NoMatch} />
     </Route>
 );
 

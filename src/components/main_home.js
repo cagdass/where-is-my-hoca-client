@@ -8,11 +8,13 @@ class MainHome extends React.Component {
         super(props, context, ...args);
     }
 
-
     render() {
         let {children, history} = this.props;
         let currentRouteName = this.props.location.pathname;
-        console.log("Current route is " + currentRouteName);
+
+        let navStyle = {
+            fontSize: "14px"
+        };
 
         return <div>
             <Navbar>
@@ -22,30 +24,35 @@ class MainHome extends React.Component {
                     </Navbar.Brand>
                     <Navbar.Toggle />
                 </Navbar.Header>
-                <Navbar.Collapse>
+                <Navbar.Collapse style={navStyle}>
                     <Nav stacked>
                         <Navbar.Brand>
-                            <Link to="/hocas">Hocas</Link>
+                            <Link style={navStyle} to="/hocas">Hocas</Link>
                         </Navbar.Brand>
                     </Nav>
                     <Nav stacked>
                         <Navbar.Brand>
-                            <Link to="/departments">Departments</Link>
+                            <Link style={navStyle} to="/departments">Departments</Link>
                         </Navbar.Brand>
                     </Nav>
                     <Nav stacked>
                         <Navbar.Brand>
-                            <Link to="/buildings">Buildings</Link>
+                            <Link style={navStyle} to="/buildings">Buildings</Link>
                         </Navbar.Brand>
                     </Nav>
                     <Nav stacked>
                         <Navbar.Brand>
-                            <Link to="/classrooms">Classrooms</Link>
+                            <Link style={navStyle} to="/classrooms">Classrooms</Link>
                         </Navbar.Brand>
                     </Nav>
                     <Nav stacked>
                         <Navbar.Brand>
-                            <Link to="/empty_classrooms">EmptyClassrooms</Link>
+                            <Link style={navStyle} to="/empty_classrooms">EmptyClassrooms</Link>
+                        </Navbar.Brand>
+                    </Nav>
+                    <Nav stacked>
+                        <Navbar.Brand>
+                            <Link style={navStyle} to="/electives">Electives</Link>
                         </Navbar.Brand>
                     </Nav>
                     <Nav stacked pullRight>

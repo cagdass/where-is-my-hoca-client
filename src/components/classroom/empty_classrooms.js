@@ -180,7 +180,8 @@ class EmptyClassrooms extends React.Component {
                                 </Col>
                                 <Col xs={5}>
                                     <FormControl onChange={this.handleBuildingChange.bind(this)} componentClass="select" placeholder="Select a building.">
-                                        {buildings.map(this.renderBuilding.bind(this))}
+                                        <option value="">All</option>
+                                        {buildings.filter(a => a.length > 0).map(this.renderBuilding.bind(this))}
                                     </FormControl>
                                 </Col>
                             </Row>
@@ -214,13 +215,15 @@ class EmptyClassrooms extends React.Component {
             <hr />
 
             <hr />
-            <Loader loaded={classroomsLoaded}>
-                {foundClassrooms.map(this.renderEmptyClassroom.bind(this))}
-            </Loader>
-            <br />
-            <br />
-            <hr />
-            <p><b>Results from:</b> {selectedBuilding ? selectedBuilding + " Building" : "All buildings"} </p>
+            <Row>
+                <Loader loaded={classroomsLoaded}>
+                    {foundClassrooms.map(this.renderEmptyClassroom.bind(this))}
+                </Loader>
+            </Row>
+            <Row>
+                <hr />
+                <p><b>Results from:</b> {selectedBuilding ? selectedBuilding + " Building" : "All buildings"} </p>
+            </Row>
             <Table striped hover>
                 <thead>
                     <th>Day</th>

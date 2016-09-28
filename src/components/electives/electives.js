@@ -1,5 +1,5 @@
 import React, {PropTypes} from "react";
-import {Button, FormControl, FormGroup, ControlLabel, HelpBlock, Col, Grid, Glyphicon, Modal, Panel, Row, Table} from "react-bootstrap";
+import {Button, FormControl, Checkbox, FormGroup, ControlLabel, HelpBlock, Col, Grid, Glyphicon, Modal, Panel, Row, Table} from "react-bootstrap";
 import {Link} from "react-router";
 import scheduleService from "../department_service";
 import Loader from "react-loader";
@@ -24,7 +24,7 @@ class Electives extends React.Component {
 
     componentWillMount() {
         let {searchParams, orderParams, pager} = this.state;
-        this.searchBuildings(searchParams, orderParams, pager).then(() => {
+        this.searchDepartments(searchParams, orderParams, pager).then(() => {
             this.setState({loaded: true});
             this.sortDepartments();
         });
@@ -83,7 +83,6 @@ class Electives extends React.Component {
             clicked.push(index);
         }
 
-        console.log(clicked);
         this.setState({'clicked': clicked});
     }
 
@@ -106,13 +105,29 @@ class Electives extends React.Component {
         </Col>
     }
 
-    handleBuildingChange(event) {
-        let selectedBuilding = event.target.value;
-        this.setState({'selectedBuilding': selectedBuilding});
+    handleDepartmentChange(event) {
+        let { value, checked } = event.target;
+        console.log(value);
+        console.log(checked);
+        let { selectedDepartments = [] } = this.state;
+        if(checked && selectedDepartments.indexOf(value) == -1) {
+            this.setState({'selectedDepartments': [...selectedDepartments, value]});
+        }
+        if(!checked && selectedDepartments.indexOf(value) != -1) {
+            let index = selectedDepartments.indexOf(value);
+            this.setState({'selectedDepartments': [...selectedDepartments.slice(0, index), ...selectedDepartments.slice(index + 1)]})
+        }
     }
 
-    renderBuilding(building) {
-        return <option value={building}>{building}</option>;
+    renderDepartment(department) {
+        return (
+            <span>
+                <Col xs={2}>
+                    <Checkbox value={department} onChange={this.handleDepartmentChange.bind(this)}>
+                        {department}
+                    </Checkbox>
+                </Col>
+            </span> );
     }
 
     getDay(num) {
@@ -148,46 +163,50 @@ class Electives extends React.Component {
         </tr>
     }
 
-    renderEmptyClassroom(classroom) {
-        if(classroom){
+    renderElective(elective) {
+        console.log(elective)
+        if(elective){
             return (
-                <span>
-                    <Col className="searchCol" xs={6}>
-                        <Link to={`/classroom/${classroom.location}`}>{classroom.location}</Link>
-                    </Col>
-                </span>
+                <tr>
+                    <td><Link to={`/department/${elective.departmentCode}`}>{elective.departmentCode}</Link>{elective.courseCode}-{elective.section}</td>
+                    <td><Link to={`/hoca/${elective.instructor}`}>{elective.instructor}</Link></td>
+                    <td>{elective.title}</td>
+                    <td>{elective.lecturesRaw}</td>
+                </tr>
             );
         }
     }
 
     submitQuery() {
         this.setState({'classroomsLoaded': false});
-        this.findEmptyClassrooms();
+        this.findElectives();
     }
 
     render() {
         let [xs, md] = [2, 2];
-        let {buildings, selectedBuilding, loaded, clicked = [], foundClassrooms = [], classroomsLoaded} = this.state;
+        let {departments, selectedDepartments = [], loaded, clicked = [], foundElectives = [], electivesLoaded} = this.state;
 
         return <div>
+            <pre>{JSON.stringify(selectedDepartments)}</pre>
             <Loader loaded={loaded}>
                 <Row>
-                    <Col xs={4} md={4}>
+                    <Col xs={10} md={10}>
                         <FormGroup controlId="formControlsSelect">
                             <Row>
-                                <Col xs={5}>
-                                    <ControlLabel>Filter by building:</ControlLabel>
-                                </Col>
-                                <Col xs={5}>
-                                    <FormControl onChange={this.handleBuildingChange.bind(this)} componentClass="select" placeholder="Select a building.">
-                                        {buildings.map(this.renderBuilding.bind(this))}
-                                    </FormControl>
+                                <Col xs={30}>
+                                    <FormGroup>
+                                        <ControlLabel>Select departments to see the classes from:</ControlLabel>
+                                        <hr />
+                                        <Row>
+                                            {departments.filter(d => d.length > 0).map(this.renderDepartment.bind(this))}
+                                        </Row>
+                                    </FormGroup>
                                 </Col>
                             </Row>
                             <hr />
                             <Row>
                                 <Col xs={5}>
-                                    <Button onClick={this.submitQuery.bind(this)}>Find empty classrooms</Button>
+                                    <Button onClick={this.submitQuery.bind(this)}>Find elective classees</Button>
                                 </Col>
                             </Row>
                         </FormGroup>
@@ -214,31 +233,44 @@ class Electives extends React.Component {
             <hr />
 
             <hr />
-            <Loader loaded={classroomsLoaded}>
-                {foundClassrooms.map(this.renderEmptyClassroom.bind(this))}
+            <Loader loaded={electivesLoaded}>
+                <Table>
+                    <thead>
+                        <tr>
+                            <th>Course</th>
+                            <th>Instructor</th>
+                            <th>Title</th>
+                            <th>Schedule</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {foundElectives.map(this.renderElective.bind(this))}
+                    </tbody>
+                </Table>
             </Loader>
             <br />
             <br />
             <hr />
-            <p><b>Results from:</b> {selectedBuilding ? selectedBuilding + " Building" : "All buildings"} </p>
             <Table striped hover>
                 <thead>
-                <th>Day</th>
-                <th>Hour</th>
+                    <tr>
+                        <th>Day</th>
+                        <th>Hour</th>
+                    </tr>
                 </thead>
                 <tbody>
-                {clicked.map(this.renderSelections.bind(this))}
+                    {clicked.map(this.renderSelections.bind(this))}
                 </tbody>
             </Table>
         </div>;
     }
 }
 
-EmptyClassrooms.contextTypes = {
+Electives.contextTypes = {
     router: function () {
         return React.PropTypes.func.isRequired;
     }
 };
 
 
-export default EmptyClassrooms;
+export default Electives;
