@@ -39,3 +39,5 @@ jspm_packages
 deploy/
 deploy.tar.gz
 deploy.sh
+dev_deploy.sh
+dev_deploy.tar.gz
