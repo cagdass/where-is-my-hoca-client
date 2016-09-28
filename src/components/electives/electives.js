@@ -18,7 +18,9 @@ class Electives extends React.Component {
             departments: [],
             electivesLoaded: true,
             foundElectives: [],
-            selectedDepartments: []
+            selectedDepartments: [],
+            isDirty: false,
+            isClicked: false
         };
     }
 
@@ -33,7 +35,7 @@ class Electives extends React.Component {
     searchDepartments() {
         return scheduleService.findDistinctDepartments()
         .then(departments => {
-            this.setState({departments})
+            this.setState({'departments': departments})
         })
         .catch(searchError => this.setState({searchError}));
     }
@@ -83,7 +85,7 @@ class Electives extends React.Component {
             clicked.push(index);
         }
 
-        this.setState({'clicked': clicked});
+        this.setState({'clicked': clicked, 'isDirty': true});
     }
 
     renderRow(xs, md, index) {
@@ -178,16 +180,25 @@ class Electives extends React.Component {
     }
 
     submitQuery() {
-        this.setState({'classroomsLoaded': false});
+        this.setState({'classroomsLoaded': false, 'isClicked': true});
         this.findElectives();
     }
 
     render() {
         let [xs, md] = [2, 2];
-        let {departments, selectedDepartments = [], loaded, clicked = [], foundElectives = [], electivesLoaded} = this.state;
+        let {departments, selectedDepartments = [], loaded, clicked = [], foundElectives = [], electivesLoaded, isClicked, isDirty} = this.state;
+
+        let reddishStyle = {
+            color: "red"
+        };
 
         return <div>
+            <p>The results for given hours include all classes, not only the elective classes, make sure to check out if it has prerequisites and so on.</p>
+            <br />
+
+            <p><b>Selected departments: (array notation FTW)</b></p>
             <pre>{JSON.stringify(selectedDepartments)}</pre>
+            <hr />
             <Loader loaded={loaded}>
                 <Row>
                     <Col xs={10} md={10}>
@@ -205,14 +216,34 @@ class Electives extends React.Component {
                             </Row>
                             <hr />
                             <Row>
-                                <Col xs={5}>
-                                    <Button onClick={this.submitQuery.bind(this)}>Find elective classees</Button>
+                                <Col xs={3}>
+                                    <Button onClick={this.submitQuery.bind(this)}>Find classes</Button>
+                                </Col>
+                                <Col xs={15}>
+                                    {(!isClicked || (isDirty || clicked.length > 0)) && <p>Don't forget to select hours, put in all the free time you have to get more results.</p>}
+                                    {(isClicked && (!isDirty && clicked.length == 0)) && <p style={reddishStyle}>Don't forget to select hours, put in all the free time you have to get more results.</p>}
                                 </Col>
                             </Row>
                         </FormGroup>
                     </Col>
                 </Row>
                 <hr/>
+                <Loader loaded={electivesLoaded}>
+                    <Table>
+                        <thead>
+                        <tr>
+                            <th>Course</th>
+                            <th>Instructor</th>
+                            <th>Title</th>
+                            <th>Schedule</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {foundElectives.map(this.renderElective.bind(this))}
+                        </tbody>
+                    </Table>
+                </Loader>
+                <hr />
                 <p>Select time slots by clicking/tapping on them.</p>
                 <Grid>
                     <Col>
@@ -226,30 +257,13 @@ class Electives extends React.Component {
 
                         {[0, 1, 2, 3].map(this.renderRow.bind(this, 2, 2))}
                         <hr />
+                        <center><h3>MARMARA TIEM :((((</h3></center>
+                        <hr />
                         {[4, 5, 6, 7].map(this.renderRow.bind(this, 2, 2))}
                     </Col>
                 </Grid>
             </Loader>
             <hr />
-
-            <hr />
-            <Loader loaded={electivesLoaded}>
-                <Table>
-                    <thead>
-                        <tr>
-                            <th>Course</th>
-                            <th>Instructor</th>
-                            <th>Title</th>
-                            <th>Schedule</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {foundElectives.map(this.renderElective.bind(this))}
-                    </tbody>
-                </Table>
-            </Loader>
-            <br />
-            <br />
             <hr />
             <Table striped hover>
                 <thead>
