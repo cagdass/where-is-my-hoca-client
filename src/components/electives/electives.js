@@ -51,7 +51,6 @@ class Electives extends React.Component {
 
     findElectives() {
         let {clicked = [], selectedDepartments = []} = this.state;
-
         return scheduleService.findElectives(selectedDepartments, clicked.map(String))
             .then(results => {
                 this.setState({'foundElectives': results, 'electivesLoaded': true});
@@ -198,6 +197,7 @@ class Electives extends React.Component {
 
             <p><b>Selected departments: (array notation FTW)</b></p>
             <pre>{JSON.stringify(selectedDepartments)}</pre>
+            <pre>{JSON.stringify(clicked)}</pre>
             <hr />
             <Loader loaded={loaded}>
                 <Row>

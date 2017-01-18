@@ -16,6 +16,10 @@ class MainHome extends React.Component {
             fontSize: "14px"
         };
 
+        let semStyle = {
+            fontSize: "14px"
+        };
+
         return <div>
             <Navbar>
                 <Navbar.Header>
@@ -63,7 +67,7 @@ class MainHome extends React.Component {
                 </Navbar.Collapse>
             </Navbar>
             <div className="container">
-                {currentRouteName === "/" && <h2>Where is my Hoca?</h2>}
+                {currentRouteName === "/" && <h2>Where is my Hoca? <span style={semStyle}>2017 Spring</span></h2>}
                 {currentRouteName === "/" && <hr/>}
                 {children}
             </div>
