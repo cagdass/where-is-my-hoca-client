@@ -9,11 +9,6 @@ Since there is not anywhere else that the data is explicitly available, I wrote 
 * Query the empty classrooms at a given time, filter by building.
 * Query courses that can be taken during given free hours and filter by department.
 
-Feel free to suggest/contribute:
-
-## Future work
-* Searching a course by its course title.
-
 You can find the application deployed at [http://cgds.me/whereismyhoca](http://cgds.me/whereismyhoca)
 
 There is a back-end application running at http://cgds.me:3000, you can find the code to that application [here](http://github.com/cagdass/where-is-my-hoca-server).
@@ -28,3 +23,9 @@ There is a back-end application running at http://cgds.me:3000, you can find the
 	npm run dev # Open localhost:8080 in browser
 
 
+
+
+## Future work
+* Searching a course by its course title.
+
+Feel free to suggest/contribute anything that sparks up.
