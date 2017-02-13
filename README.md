@@ -1,12 +1,18 @@
-#Where is my Hoca? React
+#Where is my Hoca? Client
 
 Front-end application in React for **Where is my Hoca?**
 
-Since there is not anywhere else the data is explicitly put, I wrote my own application to:
+Since there is not anywhere else that the data is explicitly available, I wrote my own application to:
 
 * Find the weekly schedules of Bilkent professors.
-* Find the weekly schedules of classrooms. 
-* **Implemented, *design not complete*:** Query the empty classrooms at a given time.
+* Find the weekly schedules of classrooms filter by building. 
+* Query the empty classrooms at a given time, filter by building.
+* Query courses that can be taken during given free hours and filter by department.
+
+Feel free to suggest/contribute:
+
+## Future work
+* Searching a course by its course title.
 
 You can find the application deployed at [http://cgds.me/whereismyhoca](http://cgds.me/whereismyhoca)
 
