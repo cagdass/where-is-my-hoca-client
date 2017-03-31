@@ -121,14 +121,16 @@ class Electives extends React.Component {
     }
 
     renderDepartment(department) {
-        return (
-            <span>
-                <Col xs={2}>
-                    <Checkbox value={department} onChange={this.handleDepartmentChange.bind(this)}>
-                        {department}
-                    </Checkbox>
-                </Col>
-            </span> );
+        // return (
+        //     <span>
+        //         <Col xs={2}>
+        //             <Checkbox value={department} onChange={this.handleDepartmentChange.bind(this)}>
+        //                 {department}
+        //             </Checkbox>
+        //         </Col>
+        //     </span> );
+
+        return <option value={`${department}`}>{`${department}`}</option>
     }
 
     getDay(num) {
@@ -194,37 +196,21 @@ class Electives extends React.Component {
         return <div>
             <p>The results for given hours include all classes, not only the elective classes, make sure to check out if it has prerequisites and so on.</p>
             <br />
-
-            <p><b>Selected departments: (array notation FTW)</b></p>
-            <pre>{JSON.stringify(selectedDepartments)}</pre>
-            <pre>{JSON.stringify(clicked)}</pre>
+            {(!isClicked || (isDirty || clicked.length > 0)) && <p>Don't forget to select hours, put in all the free time you have to get more results.</p>}
+            {(isClicked && (!isDirty && clicked.length == 0)) && <p style={reddishStyle}>Don't forget to select hours, put in all the free time you have to get more results.</p>}
             <hr />
             <Loader loaded={loaded}>
                 <Row>
                     <Col xs={10} md={10}>
-                        <FormGroup controlId="formControlsSelect">
-                            <Row>
-                                <Col xs={30}>
-                                    <FormGroup>
-                                        <ControlLabel>Select departments to see the classes from:</ControlLabel>
-                                        <hr />
-                                        <Row>
-                                            {departments.filter(d => d.length > 0).map(this.renderDepartment.bind(this))}
-                                        </Row>
-                                    </FormGroup>
-                                </Col>
-                            </Row>
-                            <hr />
-                            <Row>
-                                <Col xs={3}>
-                                    <Button onClick={this.submitQuery.bind(this)}>Find classes</Button>
-                                </Col>
-                                <Col xs={15}>
-                                    {(!isClicked || (isDirty || clicked.length > 0)) && <p>Don't forget to select hours, put in all the free time you have to get more results.</p>}
-                                    {(isClicked && (!isDirty && clicked.length == 0)) && <p style={reddishStyle}>Don't forget to select hours, put in all the free time you have to get more results.</p>}
-                                </Col>
-                            </Row>
+                        <FormGroup controlId="formControlsSelectMultiple">
+                            <ControlLabel>Select departments to see the classes from:</ControlLabel>
+                            <FormControl componentClass="select" multiple>
+                                {departments.filter(d => d.length > 0).map(this.renderDepartment.bind(this))}
+                            </FormControl>
                         </FormGroup>
+                    </Col>
+                    <Col xs={3}>
+                        <Button onClick={this.submitQuery.bind(this)}>Find classes</Button>
                     </Col>
                 </Row>
                 <hr/>
@@ -264,18 +250,6 @@ class Electives extends React.Component {
                 </Grid>
             </Loader>
             <hr />
-            <hr />
-            <Table striped hover>
-                <thead>
-                    <tr>
-                        <th>Day</th>
-                        <th>Hour</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {clicked.map(this.renderSelections.bind(this))}
-                </tbody>
-            </Table>
         </div>;
     }
 }
