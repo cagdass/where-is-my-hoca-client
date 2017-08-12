@@ -41,6 +41,10 @@ class ProfessorDetails extends React.Component {
         let renderClassroom = true;
         let isClassroom = false;
 
+	if (professor === "William Sawyer") {
+            professor = "Will \"the Killer\" Hoca";
+        }
+
         return (<div>
             <h2>{professor === "Can Alkan" ? "The teachings of magnificent" : "Classes from "} {professor}:</h2>
             <Table striped condensed hover>

@@ -7,7 +7,7 @@ class MainHome extends React.Component {
     constructor(props, context, ...args) {
         super(props, context, ...args);
         this.state = {
-            "modalOpen": true,
+            "modalOpen": false,
         }
     }
 
@@ -78,7 +78,7 @@ class MainHome extends React.Component {
                 </Navbar.Collapse>
             </Navbar>
             <div className="container">
-                {currentRouteName === "/" && <h2>Where is my Hoca? <span style={semStyle}>2017 Spring</span></h2>}
+                {currentRouteName === "/" && <h2>Where is my Hoca? <span style={semStyle}>2017 Fall</span></h2>}
                 {currentRouteName === "/" && <hr/>}
                 {modalOpen &&
                     <div className="static-modal">
