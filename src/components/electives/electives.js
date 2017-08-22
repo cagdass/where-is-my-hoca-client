@@ -54,7 +54,6 @@ class Electives extends React.Component {
         return scheduleService.findElectives(selectedDepartments, clicked.map(String))
             .then(results => {
                 this.setState({'foundElectives': results, 'electivesLoaded': true});
-                console.log(results);
             })
             .catch(searchError => console.error(error));
     }
@@ -107,14 +106,14 @@ class Electives extends React.Component {
     }
 
     handleDepartmentChange(event) {
-        let { value, checked } = event.target;
-        console.log(value);
-        console.log(checked);
+        let { value } = event.target;
         let { selectedDepartments = [] } = this.state;
-        if(checked && selectedDepartments.indexOf(value) == -1) {
+        console.log(value);
+        console.log(selectedDepartments);
+        if(selectedDepartments.indexOf(value) == -1) {
             this.setState({'selectedDepartments': [...selectedDepartments, value]});
         }
-        if(!checked && selectedDepartments.indexOf(value) != -1) {
+        if(selectedDepartments.indexOf(value) != -1) {
             let index = selectedDepartments.indexOf(value);
             this.setState({'selectedDepartments': [...selectedDepartments.slice(0, index), ...selectedDepartments.slice(index + 1)]})
         }
@@ -130,7 +129,7 @@ class Electives extends React.Component {
         //         </Col>
         //     </span> );
 
-        return <option value={`${department}`}>{`${department}`}</option>
+        return <option value={`${department}`} onClick={this.handleDepartmentChange.bind(this)}>{`${department}`}</option>
     }
 
     getDay(num) {
@@ -167,7 +166,6 @@ class Electives extends React.Component {
     }
 
     renderElective(elective) {
-        console.log(elective)
         if(elective){
             return (
                 <tr>
@@ -199,6 +197,7 @@ class Electives extends React.Component {
             {(!isClicked || (isDirty || clicked.length > 0)) && <p>Don't forget to select hours, put in all the free time you have to get more results.</p>}
             {(isClicked && (!isDirty && clicked.length == 0)) && <p style={reddishStyle}>Don't forget to select hours, put in all the free time you have to get more results.</p>}
             <hr />
+            <pre>{`Departments: ${selectedDepartments}\nHours: ${clicked}`}</pre>
             <Loader loaded={loaded}>
                 <Row>
                     <Col xs={10} md={10}>
