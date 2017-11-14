@@ -1,7 +1,7 @@
 let config = {
     local: {
-        baseURL: "http://cgds.me:3000",
-        apiPath: "http://cgds.me:3000/"
+        baseURL: "https://cgds.me:3000",
+        apiPath: "https://cgds.me:3000/"
     },
     "pre-prod": {
         baseURL: "/",
