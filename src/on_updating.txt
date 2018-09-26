@@ -1,0 +1,47 @@
+@TODO: Automate this. Or at least properly configure shit.
+
+***** On server side, parser *****
+
+1.
+Go to OFFERINGS_HUNTMAN_DIR/
+
+2.
+Edit config.json, replace the current semester.
+
+3.
+Edit crawler.py with a recent and working cookie.
+@mean:/usr/share/nginx/html/offerings-huntsman# grep -r -n PHPSESS
+crawler.py:27:    cookies = dict(PHPSESSID='nsgmh3svo6c1c7h71aq6i09406')
+
+4.
+run `bash run.sh`, which will run a few Python programs in sequence.
+
+***** On server side, backend *****
+
+1.
+Go to WHEREISMYHOCA_SERVER_DIR/
+
+2. Edit the semester
+@mean:/usr/share/nginx/html/where-is-my-hoca-server# grep -r -n 20172
+mongo_connection.js:3:var default_collection = 'semester20172';
+mongo_connection.js:4:var default_classrooms = 'semester20172classrooms';
+mongo_connection.js:5:var default_electives = 'semester20172electives';
+
+***** On the client side *****
+
+1.
+Change
+components/main_home.js
+81:                {currentRouteName === "/" && <h2>Where is my Hoca? <span style={semStyle}>2018 Spring</span></h2>}
+
+2.
+Run `npm run deploy`
+
+3.
+Tar the deploy folder, at the project root directory, `tar -czf deploy.tar.gz. deploy`
+
+4.
+Upload to server at /usr/share/nginx/html.
+
+5.
+Run `bash deploy.sh` on server
